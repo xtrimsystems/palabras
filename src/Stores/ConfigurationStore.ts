@@ -1,10 +1,10 @@
 import { ColorThemeType, Configuration, Difficulties } from '../Domain';
 import { CustomStore } from './CustomStore';
-import { Language } from '../Domain/Language';
+import { localStorage } from '../Helpers/LocalStorage';
 
 class ConfigurationStore extends CustomStore<Configuration>
 {
-	public updateLanguage(language: Language) {
+	public updateLanguage(language: string) {
 		this.update((configuration: Configuration) => ({
 			...configuration,
 			language
@@ -40,9 +40,4 @@ class ConfigurationStore extends CustomStore<Configuration>
 	}
 }
 
-export const configurationStore = new ConfigurationStore({
-	volume: 1,
-	difficulty: Difficulties.EASY,
-	isOpen: true,
-	colorThemeType: ColorThemeType.PINK,
-});
+export const configurationStore = new ConfigurationStore(localStorage.getConfiguration());

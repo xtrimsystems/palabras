@@ -4,22 +4,22 @@
 
 	export let voices: SpeechSynthesisVoice[];
 
-	let voice = $configurationStore.language;
+	let lang = $configurationStore.language;
 	let difficulty = $configurationStore.difficulty;
 	let colorThemeType = $configurationStore.colorThemeType;
 
 	$: configurationStore.updateDifficulty(difficulty);
 	$: configurationStore.updateColorTheme(colorThemeType);
-	$: if (voice !== undefined && voice !== 'Choose Language') configurationStore.updateLanguage(voice);
+	$: if (lang !== undefined) configurationStore.updateLanguage(lang);
 </script>
 
 <div class="configuration-panel">
 	<div class="form-group row">
 		<label for="voices" class="col-md-3 col-form-label">Idioma</label>
 		<div class="col-md-9">
-			<select bind:value="{voice}" name="voices" id="voices" class="custom-select">
+			<select bind:value="{lang}" name="voices" id="voices" class="custom-select">
 				{#each voices as voice}
-					<option value="{voice}">{voice.name}</option>
+					<option value="{voice.lang}">{voice.name}</option>
 				{/each}
 			</select>
 		</div>

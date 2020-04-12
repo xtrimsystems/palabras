@@ -1,9 +1,6 @@
-import { Language } from './Language';
-
 export interface Configuration
 {
-	language?: Language;
-	volume: number;
+	language?: string;
 	difficulty: Difficulties;
 	isOpen: boolean;
 	colorThemeType: ColorThemeType

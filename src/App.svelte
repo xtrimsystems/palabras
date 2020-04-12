@@ -8,6 +8,8 @@
 	import WinScreen from './WinScreen.svelte';
 
 	const speech = new SpeechSynthesisUtterance();
+	speech.volume = 1;
+
 	const stageAnimals = [
 		{
 			word: 'ardilla',
@@ -131,8 +133,7 @@
 	let winScreenIsOpen = false;
 	let colorTheme;
 
-	$: speech.volume = $configurationStore.volume;
-	$: speech.voice = $configurationStore.language;
+	$: speech.voice = voices.find((voice) => voice.lang === $configurationStore.language);
 	$: colorTheme = ColorThemeBuilder.build($configurationStore.colorThemeType);
 
 	async function handleKeydown (event: KeyboardEvent) {
@@ -220,10 +221,6 @@
 			else if ( aname === bname ) return 0;
 			else return +1;
 		});
-/*
-		const defaultVoice = voices.find((voice) => voice.lang === 'es-ES');
-
-		configurationStore.updateLanguage(defaultVoice);*/
 	}
 </script>
 
