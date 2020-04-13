@@ -120,17 +120,17 @@
 	{#if winScreenIsOpen}
 		<WinScreen />
 	{:else}
-		{#if stages.length === 0 && !$configurationStore.isOpen}
+		{#if stages.length === 0 && !$configurationStore.isConfigurationOpen}
 			<SelectCategory bind:stages="{stages}" />
 		{/if}
-		{#if stage !== -1 && !$configurationStore.isOpen}
+		{#if stage !== -1 && !$configurationStore.isConfigurationOpen}
 			<Board
 					stage="{stages[stage]}"
 					index="{index}"
 			/>
 			<button class="btn btn-primary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>
 		{/if}
-		{#if $configurationStore.isOpen}
+		{#if $configurationStore.isConfigurationOpen}
 			<Configuration voices="{voices}" />
 		{:else}
 			<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openConfiguration()}>⚙</button>

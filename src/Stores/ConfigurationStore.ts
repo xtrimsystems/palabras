@@ -5,7 +5,7 @@ import { localStorage } from '../Helpers/LocalStorage';
 class ConfigurationStore extends CustomStore<Configuration>
 {
 	public updateLanguage(language: string) {
-		this.update((configuration: Configuration) => ({
+		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
 			language
 		}));
@@ -18,23 +18,23 @@ class ConfigurationStore extends CustomStore<Configuration>
 		}));
 	}
 	public updateMiniLetter(isMiniLetterActive: boolean) {
-		this.update((configuration: Configuration) => ({
+		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
 			isMiniLetterActive
 		}));
 	}
 
 	public openConfiguration(): void {
-		this.update((configuration: Configuration) => ({
+		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
-			isOpen: true
+			isConfigurationOpen: true
 		}));
 	}
 
 	public closeConfiguration(): void {
-		this.update((configuration: Configuration) => ({
+		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
-			isOpen: false
+			isConfigurationOpen: false
 		}));
 	}
 }

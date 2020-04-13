@@ -1,7 +1,7 @@
 export interface Configuration
 {
 	language: string;
-	isOpen: boolean;
+	isConfigurationOpen: boolean,
 	colorThemeType: ColorThemeType,
 	isMiniLetterActive: boolean
 }

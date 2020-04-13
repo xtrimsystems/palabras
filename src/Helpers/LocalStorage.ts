@@ -8,7 +8,7 @@ class LocalStorage
 {
 	private readonly localStorage: Storage;
 	private readonly initialConfiguration: Configuration = {
-		isOpen: true,
+		isConfigurationOpen: true,
 		isMiniLetterActive: false,
 		colorThemeType: ColorThemeType.PINK,
 		language: initialLanguage
