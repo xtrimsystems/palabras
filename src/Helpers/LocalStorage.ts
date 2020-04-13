@@ -1,6 +1,8 @@
 import { ColorThemeType, Configuration, SUPPORTED_LOCALES } from '../Domain';
 
 const defaultLanguage = window.navigator.language;
+let initialLanguage = defaultLanguage === 'es' ? 'es-ES' : defaultLanguage === 'en' ? 'en-GB': defaultLanguage;
+initialLanguage = SUPPORTED_LOCALES.find((locale) => initialLanguage.match(locale)) ? initialLanguage : 'en-GB';
 
 class LocalStorage
 {
@@ -9,7 +11,7 @@ class LocalStorage
 		isOpen: true,
 		isMiniLetterActive: false,
 		colorThemeType: ColorThemeType.PINK,
-		language: SUPPORTED_LOCALES.find((locale) => defaultLanguage.match(locale)) ? defaultLanguage : 'en'
+		language: initialLanguage
 	};
 
 	public constructor(localStorage: Storage)
