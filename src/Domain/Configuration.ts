@@ -3,7 +3,8 @@ export interface Configuration
 	language?: string;
 	difficulty: Difficulties;
 	isOpen: boolean;
-	colorThemeType: ColorThemeType
+	colorThemeType: ColorThemeType,
+	isMiniLetterActive: boolean
 }
 
 export enum Difficulties {

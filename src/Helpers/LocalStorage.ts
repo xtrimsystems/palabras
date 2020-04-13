@@ -6,6 +6,7 @@ class LocalStorage
 	private readonly initialConfiguration: Configuration = {
 		difficulty: Difficulties.EASY,
 		isOpen: true,
+		isMiniLetterActive: false,
 		colorThemeType: ColorThemeType.PINK,
 	};
 

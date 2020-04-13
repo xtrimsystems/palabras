@@ -24,6 +24,12 @@ class ConfigurationStore extends CustomStore<Configuration>
 			colorThemeType
 		}));
 	}
+	public updateMiniLetter(isMiniLetterActive: boolean) {
+		this.update((configuration: Configuration) => ({
+			...configuration,
+			isMiniLetterActive
+		}));
+	}
 
 	public openConfiguration(): void {
 		this.update((configuration: Configuration) => ({

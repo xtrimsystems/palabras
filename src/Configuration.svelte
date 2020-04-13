@@ -3,15 +3,18 @@
 	import {configurationStore} from './Stores/ConfigurationStore.ts';
 
 	import Panel from './Panel.svelte';
+	import Board from './Board.svelte';
 
 	export let voices: SpeechSynthesisVoice[];
 
 	let lang = $configurationStore.language;
 	let difficulty = $configurationStore.difficulty;
 	let colorThemeType = $configurationStore.colorThemeType;
+	let isMiniLetterActive = $configurationStore.isMiniLetterActive;
 
 	$: configurationStore.updateDifficulty(difficulty);
 	$: configurationStore.updateColorTheme(colorThemeType);
+	$: configurationStore.updateMiniLetter(isMiniLetterActive);
 	$: if (lang !== undefined) configurationStore.updateLanguage(lang);
 </script>
 
@@ -48,6 +51,19 @@
 			</label>
 		{/each}
 	</div>
+
+	<div class="form-group">
+		<Board
+				stage="{{word: 'Demo'}}"
+				index="{0}"
+				isDemo="{true}"
+		/>
+		<div class="custom-control custom-checkbox">
+			<input bind:checked="{isMiniLetterActive}" type="checkbox" class="custom-control-input" id="miniLetter">
+			<label class="custom-control-label" for="miniLetter">Mostrar letras en minuscula</label>
+		</div>
+	</div>
+
 	<div class="form-group">
 		<button class="btn btn-primary btn-lg btn-block" on:click={() => configurationStore.closeConfiguration()}>Guardar</button>
 	</div>
