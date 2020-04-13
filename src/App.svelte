@@ -17,10 +17,14 @@
 	let index = 0;
 	let winScreenIsOpen = false;
 	let colorTheme;
+	let initialLanguage = $configurationStore.language;
 
 	$: speech.voice = voices.find((voice) => voice.lang === $configurationStore.language);
 	$: colorTheme = ColorThemeBuilder.build($configurationStore.colorThemeType);
 	$: if (stages.length > 0) startGame();
+	$: if ($configurationStore.language !== initialLanguage) {
+		resetGame();
+	}
 
 	async function handleKeydown (event: KeyboardEvent) {
 		if (stage === -1) return;
@@ -85,6 +89,7 @@
 	}
 
 	function resetGame () {
+		initialLanguage = $configurationStore.language;
 		index = 0;
 		stage = -1;
 		stages = [];
