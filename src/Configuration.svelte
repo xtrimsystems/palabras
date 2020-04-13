@@ -1,6 +1,8 @@
 <script lang="ts">
-	import { Difficulties, ColorThemeType } from './Domain/Configuration.ts';
-	import { configurationStore } from './Stores/ConfigurationStore.ts';
+	import {Difficulties, ColorThemeType} from './Domain/Configuration.ts';
+	import {configurationStore} from './Stores/ConfigurationStore.ts';
+
+	import Panel from './Panel.svelte';
 
 	export let voices: SpeechSynthesisVoice[];
 
@@ -13,7 +15,7 @@
 	$: if (lang !== undefined) configurationStore.updateLanguage(lang);
 </script>
 
-<div class="configuration-panel">
+<Panel>
 	<div class="form-group row">
 		<label for="voices" class="col-md-3 col-form-label">Idioma</label>
 		<div class="col-md-9">
@@ -38,7 +40,7 @@
 
 	<div class="form-group">
 		<div class="row">
-			<label for="difficulty" class="col-md-3 col-form-label">Color</label>
+			<label class="col-md-3 col-form-label">Color</label>
 		</div>
 		{#each Object.values(ColorThemeType) as colorTheme}
 			<label class="color {colorTheme} {colorTheme === colorThemeType ? 'active': ''}" title="{colorTheme}">
@@ -49,15 +51,9 @@
 	<div class="form-group">
 		<button class="btn btn-primary btn-lg btn-block" on:click={() => configurationStore.closeConfiguration()}>Guardar</button>
 	</div>
-</div>
+</Panel>
 
 <style>
-	.configuration-panel {
-		max-width: 500px;
-		margin: 0 auto;
-		border: 1px solid var(--lightgrey);
-		padding: 15px;
-	}
 	input[type="radio"] {
 		display: none;
 	}

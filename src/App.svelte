@@ -5,128 +5,13 @@
 
 	import Configuration from './Configuration.svelte';
 	import Board from './Board.svelte';
+	import SelectCategory from './SelectCategory.svelte';
 	import WinScreen from './WinScreen.svelte';
 
 	const speech = new SpeechSynthesisUtterance();
 	speech.volume = 1;
 
-	const stageAnimals = [
-		{
-			word: 'ardilla',
-			image: 'images/words/ardilla.jpg'
-		},
-		{
-			word: 'caballo',
-			image: 'images/words/caballo.jpg'
-		},
-		{
-			word: 'cebra',
-			image: 'images/words/cebra.jpg'
-		},
-		{
-			word: 'ciervo',
-			image: 'images/words/ciervo.jpg'
-		},
-		{
-			word: 'conejo',
-			image: 'images/words/conejo.jpg'
-		},
-		{
-			word: 'elefante',
-			image: 'images/words/elefante.jpg'
-		},
-		{
-			word: 'gallina',
-			image: 'images/words/gallina.jpg'
-		},
-		{
-			word: 'gato',
-			image: 'images/words/gato.jpg'
-		},
-		{
-			word: 'lemur',
-			image: 'images/words/lemur.jpg'
-		},
-		{
-			word: 'oso',
-			image: 'images/words/oso.jpg'
-		},
-		{
-			word: 'panda',
-			image: 'images/words/panda.jpg'
-		},
-		{
-			word: 'periquito',
-			image: 'images/words/periquito.jpg'
-		},
-		{
-			word: 'perro',
-			image: 'images/words/perro.jpg'
-		},
-		{
-			word: 'tortuga',
-			image: 'images/words/tortuga.jpg'
-		},
-		{
-			word: 'vaca',
-			image: 'images/words/vaca.jpg'
-		},
-		{
-			word: 'yegua',
-			image: 'images/words/yegua.jpg'
-		}
-	];
-	const stagesFamily = [
-		{
-			word: 'abuela',
-			image: 'images/words/abuela.png',
-		},
-		{
-			word: 'abuelo',
-			image: 'images/words/abuelo.png',
-		},
-		{
-			word: 'andres',
-			image: 'images/words/andres.png',
-		},
-		{
-			word: 'dani',
-			image: 'images/words/dani.png',
-		},
-		{
-			word: 'mama',
-			image: 'images/words/mama.png',
-		},
-		{
-			word: 'martina',
-			image: 'images/words/martina.png',
-		},
-		{
-			word: 'papa',
-			image: 'images/words/papa.png',
-		},
-		{
-			word: 'sara',
-			image: 'images/words/sara.png',
-		},
-		{
-			word: 'sophie',
-			image: 'images/words/sophie.png',
-		},
-	];
-
-	const stages = [
-		{
-			word: 'caramelo',
-			image: 'images/words/caramelo.png'
-		},
-		{
-			word: 'chupachups',
-			image: 'images/words/chupa-chups.jpg'
-		},
-			...stageAnimals,
-			...stagesFamily,
-	];
+	let stages = [];
 	let voices: SpeechSynthesisVoice[] = [];
 	let stage = -1;
 	let index = 0;
@@ -135,6 +20,7 @@
 
 	$: speech.voice = voices.find((voice) => voice.lang === $configurationStore.language);
 	$: colorTheme = ColorThemeBuilder.build($configurationStore.colorThemeType);
+	$: if (stages.length > 0) startGame();
 
 	async function handleKeydown (event: KeyboardEvent) {
 		if (stage === -1) return;
@@ -159,6 +45,7 @@
 			} else if (stage === stages.length) {
 				index = 0;
 				stage = -1;
+				stages = [];
 
 				return;
 			}
@@ -229,8 +116,8 @@
 	{#if winScreenIsOpen}
 		<WinScreen />
 	{:else}
-		{#if stage === -1 && !$configurationStore.isOpen}
-			<div class="startGamePanel" on:click={startGame}>Click para comenzar!</div>
+		{#if stages.length === 0 && !$configurationStore.isOpen}
+			<SelectCategory bind:stages="{stages}" />
 		{/if}
 		{#if stage !== -1 && !$configurationStore.isOpen}
 			<Board
@@ -238,12 +125,12 @@
 					index="{index}"
 					difficulty="{$configurationStore.difficulty}"
 			/>
-			<button on:click="{readOutLoudNextLetter}">Repetir letra</button>
+			<button class="btn btn-primary btn-lg" on:click="{readOutLoudNextLetter}">Repetir letra</button>
 		{/if}
 		{#if $configurationStore.isOpen}
 			<Configuration voices="{voices}" />
 		{:else}
-			<button on:click={() => configurationStore.openConfiguration()}>⚙</button>
+			<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openConfiguration()}>⚙</button>
 		{/if}
 	{/if}
 {/if}
@@ -258,15 +145,5 @@
 		min-height: 100vh;
 		box-sizing: border-box;
 		margin: 0 auto;
-	}
-	.startGamePanel {
-		height: 500px;
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		background: var(--mainBackgroundColor);
-		color: var(--mainFontColor);
-		cursor: pointer;
-		font-size: 45px;
 	}
 </style>
