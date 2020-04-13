@@ -8,7 +8,7 @@
 
 <div class="card">
 	<div class="card-body word">
-		{#each stage.word as letter, i}k
+		{#each stage.word as letter, i}
 			<div class="letter"
 				 class:isActive="{i === index}"
 				 class:isGuessed="{i < index}"
