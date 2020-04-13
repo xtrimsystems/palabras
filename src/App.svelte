@@ -26,32 +26,20 @@
 		if (stage === -1) return;
 
 		const word = stages[stage].word;
-		let isValid = false;
 
-		if (event.key === word[index]) {
-			isValid = true;
-			index++;
-		}
+		if (event.key !== word[index]) return;
 
-		if (index === word.length) {
+		if (++index === word.length) {
 			await showWinScreen(5000);
 			index = 0;
 			stage++;
 
 			if (stage < stages.length) {
 				readOutLoudNextWord();
-
-				return;
 			} else if (stage === stages.length) {
-				index = 0;
-				stage = -1;
-				stages = [];
-
-				return;
+				resetGame();
 			}
-		}
-
-		if (isValid) {
+		} else {
 			readOutLoudNextLetter();
 		}
 	}
@@ -94,6 +82,12 @@
 		stage = 0;
 		index = 0;
 		readOutLoudNextWord();
+	}
+
+	function resetGame () {
+		index = 0;
+		stage = -1;
+		stages = [];
 	}
 
 	window.speechSynthesis.addEventListener('voiceschanged', handleSpeechSynthesisVoices);
