@@ -1,6 +1,8 @@
 <script lang="ts">
-	import {Difficulties, ColorThemeType} from './Domain/Configuration.ts';
-	import {configurationStore} from './Stores/ConfigurationStore.ts';
+	import { ColorThemeType } from './Domain/Configuration.ts';
+	import { configurationStore } from './Stores/ConfigurationStore.ts';
+	import { i18nStore } from './Stores/I18nStore.ts';
+	import { InterfaceTexts } from './InterfaceTexts.ts';
 
 	import Panel from './Panel.svelte';
 	import Board from './Board.svelte';
@@ -8,19 +10,18 @@
 	export let voices: SpeechSynthesisVoice[];
 
 	let lang = $configurationStore.language;
-	let difficulty = $configurationStore.difficulty;
 	let colorThemeType = $configurationStore.colorThemeType;
 	let isMiniLetterActive = $configurationStore.isMiniLetterActive;
 
-	$: configurationStore.updateDifficulty(difficulty);
 	$: configurationStore.updateColorTheme(colorThemeType);
 	$: configurationStore.updateMiniLetter(isMiniLetterActive);
 	$: if (lang !== undefined) configurationStore.updateLanguage(lang);
+	$: i18nStore.updateI18n(InterfaceTexts.find((it) => $configurationStore.language.match(it.language)))
 </script>
 
 <Panel>
 	<div class="form-group row">
-		<label for="voices" class="col-md-3 col-form-label">Idioma</label>
+		<label for="voices" class="col-md-3 col-form-label">{$i18nStore.texts.language}</label>
 		<div class="col-md-9">
 			<select bind:value="{lang}" name="voices" id="voices" class="custom-select">
 				{#each voices as voice}
@@ -30,20 +31,9 @@
 		</div>
 	</div>
 
-	<div class="form-group row">
-		<label for="difficulty" class="col-md-3 col-form-label">Dificultad</label>
-		<div class="col-md-9">
-			<select bind:value="{difficulty}" name="difficulties" id="difficulties" class="custom-select">
-				{#each Object.values(Difficulties) as difficulty}
-					<option value="{difficulty}">{difficulty}</option>
-				{/each}
-			</select>
-		</div>
-	</div>
-
 	<div class="form-group">
 		<div class="row">
-			<label class="col-md-3 col-form-label">Color</label>
+			<label class="col-md-3 col-form-label">{$i18nStore.texts.color}</label>
 		</div>
 		{#each Object.values(ColorThemeType) as colorTheme}
 			<label class="color {colorTheme} {colorTheme === colorThemeType ? 'active': ''}" title="{colorTheme}">
@@ -60,12 +50,12 @@
 		/>
 		<div class="custom-control custom-checkbox">
 			<input bind:checked="{isMiniLetterActive}" type="checkbox" class="custom-control-input" id="miniLetter">
-			<label class="custom-control-label" for="miniLetter">Mostrar letras en minuscula</label>
+			<label class="custom-control-label" for="miniLetter">{$i18nStore.texts.showLowerCase}</label>
 		</div>
 	</div>
 
 	<div class="form-group">
-		<button class="btn btn-primary btn-lg btn-block" on:click={() => configurationStore.closeConfiguration()}>Guardar</button>
+		<button class="btn btn-primary btn-lg btn-block" on:click={() => configurationStore.closeConfiguration()}>{$i18nStore.texts.save}</button>
 	</div>
 </Panel>
 

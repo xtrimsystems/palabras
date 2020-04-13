@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { i18nStore } from './Stores/I18nStore.ts';
+
     const rewards = [
         {
 	        alt: 'Heart 01',
@@ -26,7 +28,7 @@
 </script>
 
 <div class="winScreen">
-	<h1>Muy Bien!</h1>
+	<h1>{$i18nStore.texts.veryGood}</h1>
 	<img {alt} {src} />
 </div>
 

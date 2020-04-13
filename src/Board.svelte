@@ -1,16 +1,14 @@
 <script lang="ts">
 	import { configurationStore } from './Stores/ConfigurationStore.ts';
-	import { Difficulties } from './Domain/Configuration.ts';
 
 	export let stage;
 	export let index;
-	export let difficulty = Difficulties.EASY;
 	export let isDemo = false;
 </script>
 
 <div class="card">
 	<div class="card-body word">
-		{#each stage.word as letter, i}
+		{#each stage.word as letter, i}k
 			<div class="letter"
 				 class:isActive="{i === index}"
 				 class:isGuessed="{i < index}"
@@ -26,7 +24,7 @@
 			</div>
 		{/each}
 	</div>
-	{#if !isDemo && difficulty === Difficulties.EASY}
+	{#if !isDemo}
 		<div class="card-image image">
 			<img src="{stage.image}" alt="{stage.word}">
 		</div>

@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { configurationStore } from './Stores/ConfigurationStore.ts';
+	import { i18nStore } from './Stores/I18nStore.ts';
 	import { CssVars } from './Helpers/CssVars.ts';
 	import { ColorThemeBuilder } from './Helpers/ColorThemeBuilder.ts';
 
@@ -19,7 +20,7 @@
 	let colorTheme;
 	let initialLanguage = $configurationStore.language;
 
-	$: speech.voice = voices.find((voice) => voice.lang === $configurationStore.language);
+	$: speech.voice = voices.find((voice) => voice.lang.match($configurationStore.language));
 	$: colorTheme = ColorThemeBuilder.build($configurationStore.colorThemeType);
 	$: if (stages.length > 0) startGame();
 	$: if ($configurationStore.language !== initialLanguage) {
@@ -60,7 +61,7 @@
 	function readOutLoudNextLetter () {
 		const letter = stages[stage].word[index];
 		if (typeof letter !== 'undefined') {
-			readOutLoud(`Teclea la letra ${letter}`);
+			readOutLoud(`${$i18nStore.texts.pressLetter} ${letter}`);
 		}
 	}
 
@@ -72,7 +73,7 @@
 		const word = stages[stage].word;
 
 		if (typeof word !== 'undefined') {
-			readOutLoud(`La palabra a escribir es ${word}`);
+			readOutLoud(`${$i18nStore.texts.theWordToWriteIs} ${word}`);
 		}
 	}
 
@@ -110,6 +111,10 @@
 	}
 </script>
 
+<svelte:head>
+	<title>{$i18nStore.texts.appName}</title>
+</svelte:head>
+
 <main use:CssVars="{colorTheme}">
 {#if voices.length > 0}
 	{#if winScreenIsOpen}
@@ -122,9 +127,8 @@
 			<Board
 					stage="{stages[stage]}"
 					index="{index}"
-					difficulty="{$configurationStore.difficulty}"
 			/>
-			<button class="btn btn-primary btn-lg" on:click="{readOutLoudNextLetter}">Repetir letra</button>
+			<button class="btn btn-primary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>
 		{/if}
 		{#if $configurationStore.isOpen}
 			<Configuration voices="{voices}" />

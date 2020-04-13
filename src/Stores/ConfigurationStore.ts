@@ -1,4 +1,4 @@
-import { ColorThemeType, Configuration, Difficulties } from '../Domain';
+import { ColorThemeType, Configuration } from '../Domain';
 import { CustomStore } from './CustomStore';
 import { localStorage } from '../Helpers/LocalStorage';
 
@@ -8,13 +8,6 @@ class ConfigurationStore extends CustomStore<Configuration>
 		this.update((configuration: Configuration) => ({
 			...configuration,
 			language
-		}));
-	}
-
-	public updateDifficulty(difficulty: Difficulties) {
-		this.update((configuration: Configuration) => ({
-			...configuration,
-			difficulty
 		}));
 	}
 

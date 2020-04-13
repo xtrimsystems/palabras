@@ -1,6 +1,8 @@
+import { LOCALES_EN, LOCALES_ES } from './Domain';
+
 export const Categories: I18nCategories[] = [
 	{
-		language: 'es-ES|es-US',
+		language: LOCALES_ES,
 		categories: [
 			{
 				name: 'Animales',
@@ -128,7 +130,7 @@ export const Categories: I18nCategories[] = [
 		]
 	},
 	{
-		language: 'en-US|en-GB',
+		language: LOCALES_EN,
 		categories: [
 			{
 				name: 'Animals',

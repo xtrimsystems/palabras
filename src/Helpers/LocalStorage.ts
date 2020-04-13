@@ -1,13 +1,15 @@
-import { ColorThemeType, Configuration, Difficulties } from '../Domain';
+import { ColorThemeType, Configuration, SUPPORTED_LOCALES } from '../Domain';
+
+const defaultLanguage = window.navigator.language;
 
 class LocalStorage
 {
 	private readonly localStorage: Storage;
 	private readonly initialConfiguration: Configuration = {
-		difficulty: Difficulties.EASY,
 		isOpen: true,
 		isMiniLetterActive: false,
 		colorThemeType: ColorThemeType.PINK,
+		language: SUPPORTED_LOCALES.find((locale) => defaultLanguage.match(locale)) ? defaultLanguage : 'en'
 	};
 
 	public constructor(localStorage: Storage)

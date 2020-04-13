@@ -1,17 +1,14 @@
 export interface Configuration
 {
-	language?: string;
-	difficulty: Difficulties;
+	language: string;
 	isOpen: boolean;
 	colorThemeType: ColorThemeType,
 	isMiniLetterActive: boolean
 }
 
-export enum Difficulties {
-	EASY = 'Facil',
-	MEDIUM = 'Normal',
-	HARD = 'Dificil'
-}
+export const LOCALES_EN = 'en|en-GB|en-US';
+export const LOCALES_ES = 'es|es-ES|es-US';
+export const SUPPORTED_LOCALES = [ LOCALES_EN, LOCALES_ES ];
 
 export enum ColorThemeType {
 	PINK = 'Pink',
