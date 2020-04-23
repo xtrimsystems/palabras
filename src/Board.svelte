@@ -43,6 +43,7 @@
 		justify-content: center;
 		align-items: center;
 		margin: 0 5px;
+		padding-bottom: 10px;
 		box-sizing: border-box;
 		border-bottom: 5px solid transparent;
 		position: relative;
