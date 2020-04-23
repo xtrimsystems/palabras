@@ -6,26 +6,26 @@
 	export let isDemo = false;
 </script>
 
-<div class="card">
-	<div class="card-body word">
+<div>
+	<div class="word">
 		{#each stage.word as letter, i}
 			<div class="letter"
 				 class:isActive="{i === index}"
 				 class:isGuessed="{i < index}"
 				 class:isDemo>
-				<span class="normal-letter">
+				<div class="normal-letter">
 					{letter}
-				</span>
+				</div>
 				{#if $configurationStore.isMiniLetterActive}
-					<span class="mini-letter">
+					<div class="mini-letter">
 						{letter}
-					</span>
+					</div>
 				{/if}
 			</div>
 		{/each}
 	</div>
 	{#if !isDemo}
-		<div class="card-image image">
+		<div class="image">
 			<img src="{stage.image}" alt="{stage.word}">
 		</div>
 	{/if}
@@ -38,48 +38,40 @@
 	}
 	.letter {
 		display: flex;
+		flex: 1 0 auto;
+		flex-direction: column;
 		justify-content: center;
 		align-items: center;
-		min-width: 130px;
-		min-height: 130px;
 		margin: 0 5px;
 		box-sizing: border-box;
-		border: 1px solid var(--lightBackgroundColor);
+		border-bottom: 5px solid transparent;
 		position: relative;
 	}
+	.letter.isActive {
+		 border-bottom: 5px solid var(--darkBackgroundColor);
+	 }
+	.letter.isGuessed {
+		color: var(--mainBackgroundColor);
+	}
 	.normal-letter {
-		font-size: 100px;
 		line-height: 1;
 		text-transform: uppercase;
+		font-size: 2.5rem;
 	}
 	.mini-letter {
-		font-size: 30px;
-		position: absolute;
-		bottom: 0;
-		right: 2px;
-		line-height: 1;
 		text-transform: lowercase;
-	}
-	.isDemo.letter {
-		min-width: 70px;
-		min-height: 70px;
-	}
-	.isDemo .normal-letter {
-		font-size: 40px;
-	}
-	.isDemo .mini-letter {
-		font-size: 16px;
-	}
-	.isActive {
-		border: 5px solid var(--darkBackgroundColor);
-	}
-	.isGuessed {
-		color: var(--mainBackgroundColor);
 	}
 	.image {
 		text-align: center;
+		margin: 15px 0;
 	}
 	img {
-		max-height: 600px;
+		max-height: 500px;
+	}
+	@media (max-width: 575.98px) {
+		img {
+			width: 100%;
+			max-height: none;
+		}
 	}
 </style>

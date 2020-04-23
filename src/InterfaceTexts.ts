@@ -12,6 +12,8 @@ export interface InterfaceText
 	repeatLetter: string,
 	pressLetter: string,
 	theWordToWriteIs: string,
+	start: string,
+	letsStart: string,
 }
 
 export interface I18n
@@ -33,7 +35,9 @@ export const InterfaceTexts: I18n[] = [
 			category: 'Categoría',
 			repeatLetter: 'Repetir letra',
 			pressLetter: 'Teclea la letra',
-			theWordToWriteIs: 'La palabra a escribir es'
+			theWordToWriteIs: 'La palabra a escribir es',
+			start: 'Empezar!',
+			letsStart: 'Vamos a empezar!',
 		}
 	},
 	{
@@ -48,7 +52,9 @@ export const InterfaceTexts: I18n[] = [
 			category: 'Category',
 			repeatLetter: 'Repeat letter',
 			pressLetter: 'Press the key',
-			theWordToWriteIs: 'The word to write is'
+			theWordToWriteIs: 'The word to write is',
+			start: 'Start!',
+			letsStart: 'Lets start!',
 		}
 	}
 ];

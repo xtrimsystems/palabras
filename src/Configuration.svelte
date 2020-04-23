@@ -35,11 +35,13 @@
 		<div class="row">
 			<label class="col-md-3 col-form-label">{$i18nStore.texts.color}</label>
 		</div>
-		{#each Object.values(ColorThemeType) as colorTheme}
-			<label class="color {colorTheme} {colorTheme === colorThemeType ? 'active': ''}" title="{colorTheme}">
-				<input type=radio bind:group={colorThemeType} value={colorTheme}>
-			</label>
-		{/each}
+		<div class="row colors">
+			{#each Object.values(ColorThemeType) as colorTheme, i}
+				<label class="color {colorTheme} {colorTheme === colorThemeType ? 'active': ''}" title="{colorTheme}">
+					<input type=radio bind:group={colorThemeType} value={colorTheme}>
+				</label>
+			{/each}
+		</div>
 	</div>
 
 	<div class="form-group">
@@ -48,6 +50,9 @@
 				index="{0}"
 				isDemo="{true}"
 		/>
+	</div>
+
+	<div class="form-group">
 		<div class="custom-control custom-checkbox">
 			<input bind:checked="{isMiniLetterActive}" type="checkbox" class="custom-control-input" id="miniLetter">
 			<label class="custom-control-label" for="miniLetter">{$i18nStore.texts.showLowerCase}</label>
@@ -66,15 +71,21 @@
 	select, option {
 		cursor: pointer;
 	}
+	.colors {
+		margin: 0;
+	}
 	.color {
-		width: calc(25% - 4px);
-		height: 90px;
 		margin: 2px;
 		position: relative;
 		cursor: pointer;
+		flex: 1 0 21%;
 	}
-	.color:hover::after,
-	.color.active::after {
+	.color:before {
+		content: '';
+		float: left;
+		padding-top: 100%;
+	}
+	.color::after {
 		content: '';
 		width: 100%;
 		height: 100%;
@@ -82,11 +93,12 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		background: rgba(0,0,0,0.1);
-		color: var(--mainFontColor);
 	}
+	.color:hover::after,
 	.color.active::after {
 		content: '✓';
+		background: rgba(0,0,0,0.1);
+		color: var(--mainFontColor);
 	}
 	.Pink {
 		background-color: #ec407a;

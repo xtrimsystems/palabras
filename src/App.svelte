@@ -27,12 +27,18 @@
 		resetGame();
 	}
 
-	async function handleKeydown (event: KeyboardEvent) {
+	async function onInputChanged (event) {
+		const char = event.data;
+
+		event.srcElement.value = '';
+
+		if (!char) return;
+
 		if (stage === -1) return;
 
 		const word = stages[stage].word;
 
-		if (event.key !== word[index]) return;
+		if (char.toLowerCase() !== word[index]) return;
 
 		if (++index === word.length) {
 			await showWinScreen(5000);
@@ -115,7 +121,7 @@
 	<title>{$i18nStore.texts.appName}</title>
 </svelte:head>
 
-<main use:CssVars="{colorTheme}">
+<main use:CssVars="{colorTheme}" class="container-xl">
 {#if voices.length > 0}
 	{#if winScreenIsOpen}
 		<WinScreen />
@@ -124,6 +130,7 @@
 			<SelectCategory bind:stages="{stages}" />
 		{/if}
 		{#if stage !== -1 && !$configurationStore.isConfigurationOpen}
+			<input on:input={onInputChanged} on:blur={function () { this.focus() }} autofocus type="text" />
 			<Board
 					stage="{stages[stage]}"
 					index="{index}"
@@ -136,10 +143,11 @@
 			<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openConfiguration()}>⚙</button>
 		{/if}
 	{/if}
+{:else}
+	<button on:click={() => readOutLoud($i18nStore.texts.letsStart)} class="btn btn-primary btn-lg btn-block">{$i18nStore.texts.start}</button>
 {/if}
 </main>
 
-<svelte:window on:keyup={handleKeydown}/>
 
 <style>
 	main {
@@ -148,5 +156,11 @@
 		min-height: 100vh;
 		box-sizing: border-box;
 		margin: 0 auto;
+	}
+	input {
+		position: absolute;
+		left: -99999px;
+		width: 0;
+		height: 0;
 	}
 </style>
