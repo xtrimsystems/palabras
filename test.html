@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport"
+	      content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+	<meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Document</title>
+</head>
+<body>
+<input id="inp" type='file'> 
+
+</body>
+<script>
+
+	const canvas = document.createElement('canvas');
+	const ctx = canvas.getContext('2d');
+
+	function readFile () {
+		if ( this.files && this.files[0] ) {
+			const FR = new FileReader();
+
+			FR.onload = (e) => {
+				const img = new Image();
+
+				img.addEventListener('load', () => {
+
+					canvas.width = img.width;
+					canvas.height = img.height;
+
+					drawImageProperly(ctx, img, 0, 0, img.width, img.height);
+
+					const base64Img = canvas.toDataURL('image/jpeg', 0.3);
+
+					ctx.clearRect(0, 0, 0, 0);
+
+					const store = getObjectStore(DB_STORE_CATEGORIES, 'readwrite');
+
+					const req = store.add({ name: 'new test 2', stages: [ { word: this.files[0].name, image: base64Img }]});
+					req.onsuccess = () => console.log('done');
+					req.onerror = (e) => console.log('error', e);
+
+					setTimeout(() => {
+						const store = getObjectStore(DB_STORE_CATEGORIES, 'readwrite');
+						store.add({name: 'new test 3', stages: [{word: this.files[0].name, image: base64Img}]});
+
+						req.onsuccess = () => console.log('done');
+						req.onerror = (e) => console.log('error', e);
+					}, 2000);
+				});
+
+				img.src = e.target.result;
+			};
+
+			FR.readAsDataURL( this.files[0] );
+		}
+	}
+
+	function drawImageProperly(ctx, img, x, y, w, h, offsetX, offsetY) {
+
+		if (arguments.length === 2) {
+			x = y = 0;
+			w = ctx.canvas.width;
+			h = ctx.canvas.height;
+		}
+
+		// default offset is center
+		offsetX = typeof offsetX === "number" ? offsetX : 0.5;
+		offsetY = typeof offsetY === "number" ? offsetY : 0.5;
+
+		// keep bounds [0.0, 1.0]
+		if (offsetX < 0) offsetX = 0;
+		if (offsetY < 0) offsetY = 0;
+		if (offsetX > 1) offsetX = 1;
+		if (offsetY > 1) offsetY = 1;
+
+		var iw = img.width,
+			ih = img.height,
+			r = Math.min(w / iw, h / ih),
+			nw = iw * r,   // new prop. width
+			nh = ih * r,   // new prop. height
+			cx, cy, cw, ch, ar = 1;
+
+		// decide which gap to fill
+		if (nw < w) ar = w / nw;
+		if (Math.abs(ar - 1) < 1e-14 && nh < h) ar = h / nh;  // updated
+		nw *= ar;
+		nh *= ar;
+
+		// calc source rectangle
+		cw = iw / (nw / w);
+		ch = ih / (nh / h);
+
+		cx = (iw - cw) * offsetX;
+		cy = (ih - ch) * offsetY;
+
+		// make sure source rectangle is valid
+		if (cx < 0) cx = 0;
+		if (cy < 0) cy = 0;
+		if (cw > iw) cw = iw;
+		if (ch > ih) ch = ih;
+
+		// fill image in dest. rectangle
+		ctx.drawImage(img, cx, cy, cw, ch,  x, y, w, h);
+	}
+
+	document.getElementById("inp").addEventListener("change", readFile);
+
+	const DB_NAME = 'palabras';
+	const DB_VERSION = 1;
+	const DB_STORE_CATEGORIES = 'categories';
+	const DB_STORE_WORDS = 'words';
+	const req = indexedDB.open(DB_NAME, DB_VERSION);
+	let db;
+	let store;
+
+	req.onsuccess = function () {
+		db = this.result;
+		console.log("openDb DONE");
+
+		store = getObjectStore(DB_STORE_CATEGORIES);
+
+		const req = store.get(5);
+		req.onsuccess = () => console.log(req.result);
+	};
+	req.onerror = function (evt) {
+		console.error("[indexDB ERROR] on openDb:", evt);
+	};
+
+	req.onupgradeneeded = function (evt) {
+		console.log("openDb.onupgradeneeded");
+		const categoriesStore = evt.currentTarget.result.createObjectStore(
+			DB_STORE_CATEGORIES,
+			{ keyPath: 'id', autoIncrement: true }
+		);
+
+		categoriesStore.createIndex('name', 'name', { unique: true });
+
+		const wordsStore = evt.currentTarget.result.createObjectStore(
+			DB_STORE_WORDS,
+			{ keyPath: 'id', autoIncrement: true }
+		);
+
+		wordsStore.createIndex('categoryId', 'categoryId');
+		wordsStore.createIndex('word', 'word');
+		wordsStore.createIndex('image', 'image');
+	};
+
+	/**
+	 * @param {string} store_name
+	 * @param {string} mode either "readonly" or "readwrite"
+	 */
+	function getObjectStore(store_name, mode = 'readonly') {
+		return db.transaction(store_name, mode).objectStore(store_name);
+	}
+</script>
+
+</html>

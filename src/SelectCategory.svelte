@@ -1,5 +1,6 @@
 <script lang="ts">
 	import { configurationStore } from './Stores/ConfigurationStore.ts';
+	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
 	import { Categories } from './Categories.ts';
 
@@ -8,11 +9,14 @@
 	export let stages;
 	let category;
 	let categories = [];
-	let i18nCategory;
+	let i18nCategories;
 
-	$: i18nCategory = Categories.find((c) => $configurationStore.language.match(c.language));
-	$: if (i18nCategory) categories = i18nCategory.categories;
-	$: if (category) stages = category.stages;
+	$: i18nCategories = Categories.find((c) => $configurationStore.language.match(c.language));
+	$: if (i18nCategories) categories = [...$customCategoriesStore, ...i18nCategories.categories];
+	$: if (category) stages = [
+			...i18nCategories.stages.filter((stage) => stage.categoryId === category.id),
+			...$customCategoriesStore.filter((stage) => stage.categoryId === category.id)
+	];
 </script>
 
 <Panel>

@@ -1,16 +1,16 @@
 <script lang="ts">
 	import { configurationStore } from './Stores/ConfigurationStore.ts';
+	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
 	import { CssVars } from './Helpers/CssVars.ts';
 	import { ColorThemeBuilder } from './Helpers/ColorThemeBuilder.ts';
+	import { speechSynthesis } from './Helpers/SpeechSynthesis.ts'
+	import { indexedDB } from './IndexDB/IndexedDB.ts'
 
 	import Configuration from './Configuration.svelte';
 	import Board from './Board.svelte';
 	import SelectCategory from './SelectCategory.svelte';
 	import WinScreen from './WinScreen.svelte';
-
-	const speech = new SpeechSynthesisUtterance();
-	speech.volume = 1;
 
 	let stages = [];
 	let voices: SpeechSynthesisVoice[] = [];
@@ -19,8 +19,14 @@
 	let winScreenIsOpen = false;
 	let colorTheme;
 	let initialLanguage = $configurationStore.language;
+	let newCategoryName;
 
-	$: speech.voice = voices.find((voice) => voice.lang.match($configurationStore.language));
+	speechSynthesis.addEventListener('onLoad', (e, data) => {
+		speechSynthesis.setVoice($configurationStore.language);
+		voices = data;
+	});
+
+	$: speechSynthesis.setVoice($configurationStore.language);
 	$: colorTheme = ColorThemeBuilder.build($configurationStore.colorThemeType);
 	$: if (stages.length > 0) startGame();
 	$: if ($configurationStore.language !== initialLanguage) {
@@ -67,26 +73,17 @@
 	function readOutLoudNextLetter () {
 		const letter = stages[stage].word[index];
 		if (typeof letter !== 'undefined') {
-			readOutLoud(`${$i18nStore.texts.pressLetter} ${letter}`);
+			speechSynthesis.readOutLoud(`${$i18nStore.texts.pressLetter} ${letter}`);
 		}
 	}
 
 	function readOutLoudNextWord () {
-		speech.onend = () => {
-			speech.onend = undefined;
-			readOutLoudNextLetter();
-		};
 		const word = stages[stage].word;
+		const letter = stages[stage].word[index];
 
-		if (typeof word !== 'undefined') {
-			readOutLoud(`${$i18nStore.texts.theWordToWriteIs} ${word}`);
+		if (typeof word !== 'undefined' && typeof letter !== 'undefined') {
+			speechSynthesis.readOutLoud(`${$i18nStore.texts.theWordToWriteIs} ${word}`, `${$i18nStore.texts.pressLetter} ${letter}`);
 		}
-	}
-
-	function readOutLoud (message: string) {
-		speech.text = message;
-		window.speechSynthesis.cancel();
-		window.speechSynthesis.speak(speech);
 	}
 
 	function startGame () {
@@ -102,18 +99,19 @@
 		stages = [];
 	}
 
-	window.speechSynthesis.addEventListener('voiceschanged', handleSpeechSynthesisVoices);
+	async function createNewCategory() {
+		if (typeof newCategoryName !== 'undefined' && newCategoryName !== '') {
+			try {
+				const id = await indexedDB.addCategory(newCategoryName);
 
-	window.readoutloud = readOutLoud;
+				customCategoriesStore.addCategory({ id, name: newCategoryName});
 
-	function handleSpeechSynthesisVoices () {
-		window.speechSynthesis.removeEventListener('voiceschanged', handleSpeechSynthesisVoices);
-		voices = window.speechSynthesis.getVoices().filter((voice) => voice.lang.match(/e[n|s]/)).sort(function (a, b) {
-			const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
-			if ( aname < bname ) return -1;
-			else if ( aname === bname ) return 0;
-			else return +1;
-		});
+			} catch (e) {
+				console.log(e);
+			}
+
+			newCategoryName = '';
+		}
 	}
 </script>
 
@@ -128,9 +126,11 @@
 	{:else}
 		{#if stages.length === 0 && !$configurationStore.isConfigurationOpen}
 			<SelectCategory bind:stages="{stages}" />
+			<input bind:value={newCategoryName} type="text" />
+			<button on:click={createNewCategory} class="btn btn-primary btn-lg btn-block">Create Custom Category</button>
 		{/if}
 		{#if stage !== -1 && !$configurationStore.isConfigurationOpen}
-			<input on:input={onInputChanged} on:blur={function () { this.focus() }} autofocus type="text" />
+			<input class="visible-but-hidden" on:input={onInputChanged} on:blur={function () { this.focus() }} autofocus type="text" />
 			<Board
 					stage="{stages[stage]}"
 					index="{index}"
@@ -144,10 +144,9 @@
 		{/if}
 	{/if}
 {:else}
-	<button on:click={() => readOutLoud($i18nStore.texts.letsStart)} class="btn btn-primary btn-lg btn-block">{$i18nStore.texts.start}</button>
+	<button on:click={() => speechSynthesis.readOutLoud($i18nStore.texts.letsStart)} class="btn btn-primary btn-lg btn-block">{$i18nStore.texts.start}</button>
 {/if}
 </main>
-
 
 <style>
 	main {
@@ -157,7 +156,7 @@
 		box-sizing: border-box;
 		margin: 0 auto;
 	}
-	input {
+	.visible-but-hidden {
 		position: absolute;
 		left: -99999px;
 		width: 0;

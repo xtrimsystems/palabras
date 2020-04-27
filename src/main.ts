@@ -1,6 +1,7 @@
 import App from './App.svelte';
-import { configurationStore } from './Stores';
+import { configurationStore, customCategoriesStore } from './Stores';
 import { localStorage } from './Helpers/LocalStorage';
+import { indexedDB } from './IndexDB'
 
 export const app = new App({
 	target: document.body,
@@ -8,3 +9,7 @@ export const app = new App({
 });
 
 configurationStore.subscribe((configuration) => localStorage.writeConfiguration(configuration));
+
+indexedDB.addEventListener('onOpen', async () => {
+	customCategoriesStore.addCategories(await indexedDB.getCategories());
+});
