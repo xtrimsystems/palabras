@@ -19,6 +19,9 @@ class SpeechSynthesis extends CustomEventTarget
 
 	public readOutLoud (message: string, secondMessage?: string) {
 
+		if (this.speech.onend !== null)
+			this.speech.onend = null;
+
 		if (secondMessage) {
 			this.speech.onend = () => {
 				this.speech.onend = null;
@@ -28,12 +31,16 @@ class SpeechSynthesis extends CustomEventTarget
 
 		this.speech.text = message;
 
-		window.speechSynthesis.cancel();
+		this.cancelReading();
 		window.speechSynthesis.speak(this.speech);
 	}
 
+	public cancelReading (): void
+	{
+		window.speechSynthesis.cancel();
+	}
+
 	private handleSpeechSynthesisVoices () {
-		// window.speechSynthesis.removeEventListener('voiceschanged', handleSpeechSynthesisVoices);
 		this.voices = window.speechSynthesis.getVoices().filter((voice) => voice.lang.match(/e[n|s]/)).sort(function (a, b) {
 			const aname = a.name.toUpperCase(), bname = b.name.toUpperCase();
 			if ( aname < bname ) return -1;

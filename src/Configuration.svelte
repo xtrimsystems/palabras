@@ -45,11 +45,7 @@
 	</div>
 
 	<div class="form-group">
-		<Board
-				stage="{{word: 'Demo'}}"
-				index="{0}"
-				isDemo="{true}"
-		/>
+		<Board isDemo="{true}" />
 	</div>
 
 	<div class="form-group">
