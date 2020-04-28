@@ -67,6 +67,7 @@
 	}
 
 	function resetGame () {
+		speechSynthesis.cancelReading();
 		initialLanguage = $configurationStore.language;
 		index = 0;
 		stages = [];
@@ -108,7 +109,8 @@
 			<div class="image">
 				<img src="{stages[0].image}" alt="{stages[0].word}">
 			</div>
-			<button class="btn btn-primary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>
+			<button class="btn btn-secondary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>
+			<button class="btn btn-primary btn-lg" on:click="{resetGame}">{$i18nStore.texts.backToMenu}</button>
 		</div>
 	{/if}
 {/if}

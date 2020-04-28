@@ -67,6 +67,21 @@ class IndexedDB extends CustomEventTarget
 		});
 	}
 
+	public async removeCategory(id: number): Promise<boolean>
+	{
+		return new Promise<boolean>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
+			const request = store.delete(id);
+
+			request.onsuccess = () => {
+				console.log(request);
+				// @ts-ignore
+				resolve(true);
+			}
+			request.onerror = (e) => reject(false);
+		});
+	}
+
 	private getObjectStore(storeName: string, mode: IDBTransactionMode = 'readonly'): IDBObjectStore
 	{
 		if (!this.db) {

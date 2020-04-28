@@ -37,6 +37,20 @@ class ConfigurationStore extends CustomStore<Configuration>
 			isConfigurationOpen: false
 		}));
 	}
+
+	public openCustomCategories(): void {
+		this.update((configuration: Configuration): Configuration => ({
+			...configuration,
+			isCustomCategoriesOpen: true
+		}));
+	}
+
+	public closeCustomCategories(): void {
+		this.update((configuration: Configuration): Configuration => ({
+			...configuration,
+			isCustomCategoriesOpen: false
+		}));
+	}
 }
 
 export const configurationStore = new ConfigurationStore(localStorage.getConfiguration());

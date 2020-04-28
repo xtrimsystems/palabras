@@ -14,6 +14,7 @@ export interface InterfaceText
 	theWordToWriteIs: string,
 	start: string,
 	letsStart: string,
+	backToMenu: string,
 }
 
 export interface I18n
@@ -38,6 +39,7 @@ export const InterfaceTexts: I18n[] = [
 			theWordToWriteIs: 'La palabra a escribir es',
 			start: 'Empezar!',
 			letsStart: 'Vamos a empezar!',
+			backToMenu: 'Volver al menu'
 		}
 	},
 	{
@@ -55,6 +57,7 @@ export const InterfaceTexts: I18n[] = [
 			theWordToWriteIs: 'The word to write is',
 			start: 'Start!',
 			letsStart: 'Lets start!',
+			backToMenu: 'Back to menu'
 		}
 	}
 ];

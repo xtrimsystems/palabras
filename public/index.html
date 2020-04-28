@@ -18,14 +18,34 @@
 			font-family: 'Roboto', sans-serif;
 		}
 		.btn-primary {
-			background-color: var(--lightBackgroundColor);
-			color: var(--lightFontColor);
-			border-color: var(--lightBackgroundColor);
+			background-color: var(--lightBackgroundColor) !important;
+			color: var(--lightFontColor) !important;
+			border-color: var(--lightBackgroundColor) !important;
 		}
-		.btn-primary:hover {
-			background-color: var(--darkBackgroundColor);
-			color: var(--darkFontColor);
-			border-color: var(--darkBackgroundColor);
+		.btn-primary:hover,
+		.btn-primary:active {
+			background-color: var(--darkBackgroundColor) !important;
+			color: var(--darkFontColor) !important;
+			border-color: var(--darkBackgroundColor) !important;
+		}
+		.bg-primary {
+			background-color: var(--darkBackgroundColor) !important;
+			color: var(--darkFontColor) !important;
+		}
+		.btn-secondary {
+			background-color: var(--mainBackgroundColor) !important;
+			color: var(--mainFontColor) !important;
+			border-color: var(--mainBackgroundColor) !important;
+		}
+		.btn-secondary:hover,
+		.btn-secondary:active {
+			background-color: var(--darkBackgroundColor) !important;
+			color: var(--darkFontColor) !important;
+			border-color: var(--darkBackgroundColor) !important;
+		}
+		.bg-secondary {
+			background-color: var(--lightBackgroundColor) !important;
+			color: var(--lightFontColor) !important;
 		}
 	</style>
 	<script defer src='/bundle.js'></script>

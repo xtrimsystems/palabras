@@ -2,6 +2,7 @@ export interface Configuration
 {
 	language: string;
 	isConfigurationOpen: boolean,
+	isCustomCategoriesOpen: boolean,
 	colorThemeType: ColorThemeType,
 	isMiniLetterActive: boolean
 }
