@@ -1,4 +1,5 @@
-import { LOCALES_EN, LOCALES_ES } from './Domain';
+// TODO: Refactor to have each category and related stages in its own file and a builder to retrieve them when needed for given locale
+import { I18nCategories, LOCALES_EN, LOCALES_ES } from './Domain';
 
 export const Categories: I18nCategories[] = [
 	{
@@ -200,21 +201,3 @@ export const Categories: I18nCategories[] = [
 		]
 	}
 ];
-
-export interface Stage {
-	id: number;
-	categoryId: number,
-	word: string,
-	image: string,
-}
-
-export interface Category {
-	id: number,
-	name: string
-}
-
-export interface I18nCategories {
-	language: string,
-	categories: Category[],
-	stages: Stage[]
-}

@@ -1,4 +1,4 @@
-import { Category, Stage } from '../Categories';
+import { Category, Stage } from '../Domain';
 import { CustomEventTarget } from '../Helpers/CustomEventTarget';
 
 class IndexedDB extends CustomEventTarget
