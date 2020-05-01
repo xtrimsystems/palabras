@@ -1,6 +1,7 @@
 <script lang="ts">
 	import { configurationStore } from './Stores/ConfigurationStore.ts';
 	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
+	import { customStagesStore } from './Stores/CustomStagesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
 	import { Categories } from './Categories.ts';
 
@@ -15,7 +16,7 @@
 	$: if (i18nCategories) categories = [...$customCategoriesStore, ...i18nCategories.categories];
 	$: if (category) stages = [
 			...i18nCategories.stages.filter((stage) => stage.categoryId === category.id),
-			...$customCategoriesStore.filter((stage) => stage.categoryId === category.id)
+			...$customStagesStore.filter((stage) => stage.categoryId === category.id)
 	];
 </script>
 

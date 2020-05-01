@@ -1,5 +1,5 @@
 import App from './App.svelte';
-import { configurationStore, customCategoriesStore } from './Stores';
+import { configurationStore, customCategoriesStore, customStagesStore } from './Stores';
 import { localStorage } from './Helpers/LocalStorage';
 import { indexedDB } from './IndexDB'
 
@@ -12,4 +12,5 @@ configurationStore.subscribe((configuration) => localStorage.writeConfiguration(
 
 indexedDB.addEventListener('onOpen', async () => {
 	customCategoriesStore.addCategories(await indexedDB.getCategories());
+	customStagesStore.addStages(await indexedDB.getStages());
 });

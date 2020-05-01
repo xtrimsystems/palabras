@@ -1,4 +1,4 @@
-import { Category } from '../Categories';
+import { Category, Stage } from '../Categories';
 import { CustomEventTarget } from '../Helpers/CustomEventTarget';
 
 class IndexedDB extends CustomEventTarget
@@ -9,7 +9,7 @@ class IndexedDB extends CustomEventTarget
 	private DB_NAME = 'palabras';
 	private DB_VERSION = 1;
 	private DB_STORE_CATEGORIES = 'categories';
-	private DB_STORE_WORDS = 'words';
+	private DB_STORE_STAGES = 'stages';
 
 	public constructor()
 	{
@@ -31,7 +31,7 @@ class IndexedDB extends CustomEventTarget
 
 			// @ts-ignore
 			const wordsStore = evt.currentTarget.result.createObjectStore(
-				this.DB_STORE_WORDS,
+				this.DB_STORE_STAGES,
 				{ keyPath: 'id', autoIncrement: true }
 			);
 
@@ -57,29 +57,91 @@ class IndexedDB extends CustomEventTarget
 		return new Promise<number>((resolve, reject) => {
 			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
 			const request = store.add({ name: categoryName });
+			// @ts-ignore
+			request.onsuccess = () => resolve(request.result);
+			request.onerror = (e) => reject(e);
+		});
+	}
 
-			request.onsuccess = () => {
-				console.log(request);
-				// @ts-ignore
-				resolve(request.result);
-			}
+	public async updateCategory(category: Category): Promise<Category>
+	{
+		return new Promise<Category>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
+			const request = store.put(category);
+			// @ts-ignore
+			request.onsuccess = () => resolve(request.result);
 			request.onerror = (e) => reject(e);
 		});
 	}
 
 	public async removeCategory(id: number): Promise<boolean>
 	{
+		const deletedStages = await this.removeStagesOfCategory(id);
+
+		if (!deletedStages) return Promise.reject(false);
+
 		return new Promise<boolean>((resolve, reject) => {
 			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
 			const request = store.delete(id);
 
-			request.onsuccess = () => {
-				console.log(request);
-				// @ts-ignore
-				resolve(true);
-			}
+			request.onsuccess = () => resolve(true);
 			request.onerror = (e) => reject(false);
 		});
+	}
+
+	public async getStages(): Promise<Stage[]>
+	{
+		return new Promise<Stage[]>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_STAGES);
+			const request = store.getAll();
+
+			request.onsuccess = () => resolve(request.result);
+			request.onerror = (e) => reject(e);
+		})
+	}
+
+	public async addStage(word: string, image: string, categoryId: number): Promise<number>
+	{
+		return new Promise<number>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_STAGES, 'readwrite');
+			const request = store.add({ word, image, categoryId });
+			// @ts-ignore
+			request.onsuccess = () => resolve(request.result)
+			request.onerror = (e) => reject(e);
+		});
+	}
+
+	public async removeStage(id: number): Promise<boolean>
+	{
+		return new Promise<boolean>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_STAGES, 'readwrite');
+			const request = store.delete(id);
+
+			request.onsuccess = () => resolve(true);
+			request.onerror = (e) => reject(false);
+		});
+	}
+
+	public async updateStage(stage: Stage): Promise<boolean>
+	{
+		return new Promise<boolean>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_STAGES, 'readwrite');
+			const request = store.put(stage);
+
+			request.onsuccess = () => resolve(true);
+			request.onerror = (e) => reject(false);
+		});
+	}
+
+	private async removeStagesOfCategory(categoryId: number): Promise<boolean[]>
+	{
+		const stages = await this.getStages();
+
+		const deleteStages = stages
+			.filter((stage) => stage.categoryId === categoryId)
+			.map((stage) => this.removeStage(stage.id));
+
+		return Promise.all(deleteStages);
 	}
 
 	private getObjectStore(storeName: string, mode: IDBTransactionMode = 'readonly'): IDBObjectStore

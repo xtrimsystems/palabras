@@ -26,7 +26,7 @@
 
 		if ($configurationStore.isConfigurationOpen) return;
 
-		if (char.toLowerCase() !== word[index]) return;
+		if (char.toLowerCase() !== word[index].toLowerCase()) return;
 
 		if (++index === word.length) {
 			await showWinScreen(5000);

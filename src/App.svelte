@@ -29,8 +29,8 @@
 {#if voices.length > 0}
 	<div class:visibleButHidden="{$configurationStore.isConfigurationOpen || $configurationStore.isCustomCategoriesOpen}">
 		<Board />
-		<button class="btn btn-primary btn-lg"  on:click={() => configurationStore.openConfiguration()}>⚙</button>
-<!--		<button class="btn btn-primary btn-lg"  on:click={() => configurationStore.openCustomCategories()}>⚙</button>-->
+		<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openConfiguration()}>⚙</button>
+		<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openCustomCategories()}>Edit my categories</button>
 	</div>
 	{#if $configurationStore.isConfigurationOpen}
 		<Configuration voices="{voices}" />
@@ -45,16 +45,15 @@
 
 <style>
 	main {
-		padding: 1em;
-		width: 100vw;
-		min-height: 100vh;
-		box-sizing: border-box;
-		margin: 0 auto;
+		padding: 0;
 	}
-	.visibleButHidden {
+	:global(.visibleButHidden) {
 		position: absolute;
 		left: -99999px;
 		width: 0;
 		height: 0;
+	}
+	:global(.far,.fas) {
+		font-size: 1.5rem;
 	}
 </style>
