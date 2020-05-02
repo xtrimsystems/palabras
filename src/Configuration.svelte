@@ -54,10 +54,6 @@
 			<label class="custom-control-label" for="miniLetter">{$i18nStore.texts.showLowerCase}</label>
 		</div>
 	</div>
-
-	<div class="form-group">
-		<button class="btn btn-primary btn-lg btn-block" on:click={() => configurationStore.closeConfiguration()}>{$i18nStore.texts.save}</button>
-	</div>
 </Panel>
 
 <style>
@@ -74,7 +70,12 @@
 		margin: 2px;
 		position: relative;
 		cursor: pointer;
-		flex: 1 0 21%;
+		flex: 1 0 auto;
+	}
+	@media (max-width: 769px) {
+		.color {
+			flex: 1 0 21%;
+		}
 	}
 	.color:before {
 		content: '';

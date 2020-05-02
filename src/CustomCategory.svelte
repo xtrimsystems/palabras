@@ -124,7 +124,6 @@
 		cursor: pointer;
 	}
 	input[readonly] {
-		text-align: center;
 		cursor: pointer;
 	}
 	input[type="text"] {

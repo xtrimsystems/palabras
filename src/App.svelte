@@ -8,6 +8,7 @@
 	import Configuration from './Configuration.svelte';
 	import Board from './Board.svelte';
 	import CustomCategories from './CustomCategories.svelte';
+	import NavBar from './NavBar.svelte';
 
 	let voices: SpeechSynthesisVoice[] = [];
 	let colorTheme;
@@ -27,11 +28,12 @@
 
 <main use:CssVars="{colorTheme}" class="container-xl">
 {#if voices.length > 0}
-	<div class:visibleButHidden="{$configurationStore.isConfigurationOpen || $configurationStore.isCustomCategoriesOpen}">
+	<NavBar />
+	{#if !$configurationStore.isCustomCategoriesOpen}
+	<div class:visibleButHidden="{$configurationStore.isConfigurationOpen}">
 		<Board />
-		<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openConfiguration()}>⚙</button>
-		<button class="btn btn-primary btn-lg" on:click={() => configurationStore.openCustomCategories()}>Edit my categories</button>
 	</div>
+	{/if}
 	{#if $configurationStore.isConfigurationOpen}
 		<Configuration voices="{voices}" />
 	{/if}

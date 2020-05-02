@@ -3,9 +3,7 @@
 </div>
 <style>
 	div {
-		max-width: 500px;
-		margin: 0 auto;
-		border: 1px solid var(--lightgrey);
-		padding: 15px;
+		background: var(--white);
+		padding: .5rem 1rem;
 	}
 </style>

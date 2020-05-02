@@ -49,7 +49,7 @@
     <CustomCategory bind:category="{category}" />
 {/each}
 </div>
-<button class="btn btn-primary btn-lg"  on:click={() => configurationStore.closeCustomCategories()}>x</button>
+
 <style>
 	:global(.card-title) {
 		display: flex;

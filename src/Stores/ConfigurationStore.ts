@@ -27,7 +27,8 @@ class ConfigurationStore extends CustomStore<Configuration>
 	public openConfiguration(): void {
 		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
-			isConfigurationOpen: true
+			isConfigurationOpen: true,
+			isCustomCategoriesOpen: false
 		}));
 	}
 
@@ -41,13 +42,22 @@ class ConfigurationStore extends CustomStore<Configuration>
 	public openCustomCategories(): void {
 		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
-			isCustomCategoriesOpen: true
+			isCustomCategoriesOpen: true,
+			isConfigurationOpen: false
 		}));
 	}
 
 	public closeCustomCategories(): void {
 		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
+			isCustomCategoriesOpen: false
+		}));
+	}
+
+	public closeConfigurationAndCustomCategories(): void {
+		this.update((configuration: Configuration): Configuration => ({
+			...configuration,
+			isConfigurationOpen: false,
 			isCustomCategoriesOpen: false
 		}));
 	}

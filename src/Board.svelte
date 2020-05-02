@@ -5,6 +5,7 @@
 
 	import SelectCategory from './SelectCategory.svelte';
 	import WinScreen from './WinScreen.svelte';
+	import Panel from './Panel.svelte';
 
 	export let isDemo = false;
 	let isWinScreenOpen = false;
@@ -41,7 +42,7 @@
 		}
 	}
 
-	async function showWinScreen(duration: number) {
+	async function showWinScreen (duration: number) {
 		speechSynthesis.cancelReading();
 		isWinScreenOpen = true;
 		await new Promise((resolve) => setTimeout(() => {
@@ -74,13 +75,14 @@
 	}
 </script>
 {#if isDemo}
-	<div class="word">
-		<div class="letter isGuessed"><div class="normal-letter">d</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">d</div>{/if}</div>
-		<div class="letter isActive"><div class="normal-letter">e</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">e</div>{/if}</div>
-		<div class="letter"><div class="normal-letter">m</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">m</div>{/if}</div>
-		<div class="letter"><div class="normal-letter">o</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">o</div>{/if}</div>
-	</div>
+<div class="word">
+	<div class="letter isGuessed"><div class="normal-letter">d</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">d</div>{/if}</div>
+	<div class="letter isActive"><div class="normal-letter">e</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">e</div>{/if}</div>
+	<div class="letter"><div class="normal-letter">m</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">m</div>{/if}</div>
+	<div class="letter"><div class="normal-letter">o</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">o</div>{/if}</div>
+</div>
 {:else}
+<Panel>
 	{#if stages.length === 0}
 		<SelectCategory bind:stages="{stages}" />
 	{:else if isWinScreenOpen}
@@ -113,6 +115,7 @@
 			<button class="btn btn-primary btn-lg" on:click="{resetGame}">{$i18nStore.texts.backToMenu}</button>
 		</div>
 	{/if}
+</Panel>
 {/if}
 
 <style>
