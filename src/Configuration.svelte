@@ -5,7 +5,7 @@
 	import { InterfaceTexts } from './InterfaceTexts.ts';
 
 	import Panel from './Panel.svelte';
-	import Board from './Board.svelte';
+	import Word from './Word.svelte';
 
 	export let voices: SpeechSynthesisVoice[];
 
@@ -45,14 +45,13 @@
 	</div>
 
 	<div class="form-group">
-		<Board isDemo="{true}" />
-	</div>
-
-	<div class="form-group">
-		<div class="custom-control custom-checkbox">
+		<div class="custom-control custom-switch">
 			<input bind:checked="{isMiniLetterActive}" type="checkbox" class="custom-control-input" id="miniLetter">
 			<label class="custom-control-label" for="miniLetter">{$i18nStore.texts.showLowerCase}</label>
 		</div>
+	</div>
+	<div class="form-group">
+		<Word isMiniLetterActive="{isMiniLetterActive}" />
 	</div>
 </Panel>
 

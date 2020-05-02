@@ -6,24 +6,24 @@
 	import SelectCategory from './SelectCategory.svelte';
 	import WinScreen from './WinScreen.svelte';
 	import Panel from './Panel.svelte';
+	import Word from './Word.svelte';
 
-	export let isDemo = false;
 	let isWinScreenOpen = false;
 	let stages = [];
 	let index = 0;
 	let initialLanguage = $configurationStore.language;
 
 	$: if (stages.length > 0) readOutLoudNextWord();
-	$: if ($configurationStore.language !== initialLanguage) {
-		resetGame();
-	}
+	$: if ($configurationStore.language !== initialLanguage) resetGame();
 
 	async function onInputChanged (event) {
-		const char = event.data;
+		if(!event.data && !event.data.length) return;
+		const char = event.data[event.data.length - 1];
 		if (!char) return;
 		const word = stages[0].word;
 
-		event.srcElement.value = '';
+		// Trick so the keyboard on smartphones is on caps or not
+		event.srcElement.value = $configurationStore.isMiniLetterActive ? 'a': '';
 
 		if ($configurationStore.isConfigurationOpen) return;
 
@@ -63,7 +63,10 @@
 		const letter = stages[0].word[index];
 
 		if (typeof word !== 'undefined' && typeof letter !== 'undefined') {
-			speechSynthesis.readOutLoud(`${$i18nStore.texts.theWordToWriteIs} ${word}`, `${$i18nStore.texts.pressLetter} ${letter}`);
+			speechSynthesis.readOutLoud(
+				`${$i18nStore.texts.theWordToWriteIs} ${word}`,
+				`${$i18nStore.texts.pressLetter} ${letter}`
+			);
 		}
 	}
 
@@ -74,14 +77,7 @@
 		stages = [];
 	}
 </script>
-{#if isDemo}
-<div class="word">
-	<div class="letter isGuessed"><div class="normal-letter">d</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">d</div>{/if}</div>
-	<div class="letter isActive"><div class="normal-letter">e</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">e</div>{/if}</div>
-	<div class="letter"><div class="normal-letter">m</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">m</div>{/if}</div>
-	<div class="letter"><div class="normal-letter">o</div>{#if $configurationStore.isMiniLetterActive}<div class="mini-letter">o</div>{/if}</div>
-</div>
-{:else}
+
 <Panel>
 	{#if stages.length === 0}
 		<SelectCategory bind:stages="{stages}" />
@@ -89,66 +85,32 @@
 		<WinScreen />
 	{:else}
 		<div>
-			<input class="visible-but-hidden" on:input={onInputChanged} on:blur={function () { this.focus() }} autofocus type="text" />
-			<div class="word">
-				{#each stages[0].word as letter, i}
-					<div class="letter"
-						 class:isActive="{i === index}"
-						 class:isGuessed="{i < index}"
-						 class:isDemo>
-						<div class="normal-letter">
-							{letter}
-						</div>
-						{#if $configurationStore.isMiniLetterActive}
-							<div class="mini-letter">
-								{letter}
-							</div>
-						{/if}
-					</div>
-				{/each}
-			</div>
+			<input
+				class="visibleButHidden"
+				on:input={onInputChanged}
+				on:blur={function () { this.focus() }}
+				autofocus
+				type="text"
+				value="{$configurationStore.isMiniLetterActive ? 'a' : ''}"
+			/>
+
+			<Word
+				value="{stages[0].word}"
+				index="{index}"
+				isMiniLetterActive="{$configurationStore.isMiniLetterActive}"
+			/>
 
 			<div class="image">
 				<img src="{stages[0].image}" alt="{stages[0].word}">
 			</div>
+
 			<button class="btn btn-secondary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>
 			<button class="btn btn-primary btn-lg" on:click="{resetGame}">{$i18nStore.texts.backToMenu}</button>
 		</div>
 	{/if}
 </Panel>
-{/if}
 
 <style>
-	.word {
-		display: flex;
-		justify-content: center;
-	}
-	.letter {
-		display: flex;
-		flex: 1 0 auto;
-		flex-direction: column;
-		justify-content: center;
-		align-items: center;
-		margin: 0 5px;
-		padding-bottom: 10px;
-		box-sizing: border-box;
-		border-bottom: 5px solid transparent;
-		position: relative;
-	}
-	.letter.isActive {
-		 border-bottom: 5px solid var(--darkBackgroundColor);
-	 }
-	.letter.isGuessed {
-		color: var(--mainBackgroundColor);
-	}
-	.normal-letter {
-		line-height: 1;
-		text-transform: uppercase;
-		font-size: 2.5rem;
-	}
-	.mini-letter {
-		text-transform: lowercase;
-	}
 	.image {
 		text-align: center;
 		margin: 15px 0;
@@ -161,11 +123,5 @@
 			width: 100%;
 			max-height: none;
 		}
-	}
-	.visible-but-hidden {
-		position: absolute;
-		left: -99999px;
-		width: 0;
-		height: 0;
 	}
 </style>

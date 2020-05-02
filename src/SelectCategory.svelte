@@ -2,7 +2,6 @@
 	import { configurationStore } from './Stores/ConfigurationStore.ts';
 	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { customStagesStore } from './Stores/CustomStagesStore.ts';
-	import { i18nStore } from './Stores/I18nStore.ts';
 	import { Categories } from './Categories.ts';
 
 	export let stages;
@@ -18,14 +17,18 @@
 	];
 </script>
 
-<div class="form-group row">
-	<label for="category" class="col-md-3 col-form-label">{$i18nStore.texts.category}</label>
-	<div class="col-md-9">
-		<select bind:value="{category}" name="category" id="category" class="custom-select">
-			<option value="">---</option>
-			{#each categories as cat}
-				<option value="{cat}">{cat.name}</option>
-			{/each}
-		</select>
+<div class="row row-cols-1 row-cols-md-2">
+	{#each categories as cat}
+	<div class="col mb-4">
+		<label style="cursor:pointer">
+			<div class="card">
+				<img src="{cat.image}" class="card-img-top" alt="{cat.name}">
+				<div class="card-body">
+					<h5 class="card-title">{cat.name}</h5>
+				</div>
+				<input bind:group={category} type="radio" class="visibleButHidden" value="{cat}">
+			</div>
+		</label>
 	</div>
+	{/each}
 </div>

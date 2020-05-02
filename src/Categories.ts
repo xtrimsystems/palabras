@@ -7,15 +7,18 @@ export const Categories: I18nCategories[] = [
 		categories: [
 			{
 				id: -1,
-				name: 'Animales'
+				name: 'Animales',
+				image: 'images/animals.webp'
 			},
 			{
 				id: -2,
-				name: 'Familia'
+				name: 'Familia',
+				image: 'images/family.png'
 			},
 			{
 				id: -3,
-				name: 'Chuches'
+				name: 'Chuches',
+				image: 'images/candy.jpg'
 			}
 		],
 		stages: [
@@ -188,7 +191,8 @@ export const Categories: I18nCategories[] = [
 		categories: [
 			{
 				id: -1,
-				name: 'Animals'
+				name: 'Animals',
+				image: 'images/animals.webp'
 			}
 		],
 		stages: [

@@ -52,8 +52,6 @@
 	:global(.visibleButHidden) {
 		position: absolute;
 		left: -99999px;
-		width: 0;
-		height: 0;
 	}
 	:global(.far,.fas) {
 		font-size: 1.5rem;
