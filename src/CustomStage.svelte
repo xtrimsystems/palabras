@@ -47,11 +47,11 @@
 <li class="list-group-item">
 	{#if isEditable}
 		<label>
-			<img src="{stage.image}" />
+			<img src="{stage.image}" class="thumbnail" />
 			<input bind:files={files} class="visibleButHidden" type="file" accept="image/*" />
 		</label>
 	{:else}
-		<img src="{stage.image}" alt="{stage.word}">
+		<img src="{stage.image}" alt="{stage.word}" class="thumbnail" />
 	{/if}
 	<input
 		bind:value={stage.word}
@@ -70,12 +70,3 @@
 		{/if}
 	</div>
 </li>
-
-<style>
-	img {
-		width: 100px;
-		height: 100px;
-		object-fit: cover;
-		margin-right: 2rem;
-	}
-</style>

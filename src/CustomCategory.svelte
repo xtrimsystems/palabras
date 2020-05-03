@@ -2,8 +2,8 @@
 	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { customStagesStore } from './Stores/CustomStagesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
-		import { indexedDB } from './IndexDB/IndexedDB.ts'
-		import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
+	import { indexedDB } from './IndexDB/IndexedDB.ts'
+	import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
 
 	import CustomStage from './CustomStage.svelte';
 
@@ -12,9 +12,11 @@
 	let word;
 	let image;
 	let files;
+	let categoryFiles;
 	let categoryId;
 	let isEditable = false;
 	let categoryNameBeforeChange;
+	let categoryImageBeforeChange;
 	let noStageWordError = false;
 
 	$: stages = $customStagesStore.filter((stg) => stg.categoryId === category.id);
@@ -22,6 +24,11 @@
 	$: (async function imgToBase64() {
 		if (files && files[0] && files[0].type.includes('image')) {
 			image = await ImageFileToBase64.convert(files[0])
+		}
+	})();
+	$: (async function imgToBase64() {
+		if (categoryFiles && categoryFiles[0] && categoryFiles[0].type.includes('image')) {
+			category.image = await ImageFileToBase64.convert(categoryFiles[0])
 		}
 	})();
 
@@ -67,17 +74,27 @@
 
 	function editCategory() {
 		categoryNameBeforeChange = category.name;
+		categoryImageBeforeChange = category.image;
 		isEditable = true
 	}
 
 	function cancelEditCategory () {
 		category.name = categoryNameBeforeChange;
+		category.image = categoryImageBeforeChange;
 		isEditable = false;
 	}
 </script>
 
 <div class="card">
 	<h5 id="category-card-{categoryId}" class="card-header card-title" data-toggle="collapse" data-target="#collapse-{categoryId}" aria-controls="collapse-{categoryId}">
+		{#if isEditable}
+			<label on:click|stopPropagation>
+				<img src="{category.image}" class="thumbnail" />
+				<input bind:files={categoryFiles} class="visibleButHidden" type="file" accept="image/*" />
+			</label>
+		{:else}
+			<img src="{category.image}" alt="{category.name}" class="thumbnail" />
+		{/if}
         <input
 			on:click={(e) => isEditable ? e.stopPropagation() : ''}
 			bind:value={category.name}
@@ -99,7 +116,7 @@
 	<ul id="collapse-{categoryId}" class="collapse list-group list-group-flush" aria-labelledby="category-card-{categoryId}" data-parent="#categoriesAccordion">
 		<li class="list-group-item">
 			<label>
-				<img src="{image ? image : '/images/upload-image.svg'}" />
+				<img src="{image ? image : '/images/upload-image.svg'}" class="thumbnail" />
 				<input bind:files={files} class="visibleButHidden" type="file" accept="image/*" />
 			</label>
 			<input
@@ -128,12 +145,5 @@
 	}
 	input[type="text"] {
 		flex: 1;
-	}
-	img {
-		width: 100px;
-		height: 100px;
-		object-fit: cover;
-		margin-right: 2rem;
-		cursor: pointer;
 	}
 </style>

@@ -3,24 +3,35 @@
 	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
 	import { indexedDB } from './IndexDB/IndexedDB.ts'
+	import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
 
 	import CustomCategory from './CustomCategory.svelte';
 
 	let name;
 	let noCategoryNameError = false;
+	let image;
+	let files;
+
+	$: (async function imgToBase64() {
+		if (files && files[0] && files[0].type.includes('image')) {
+			image = await ImageFileToBase64.convert(files[0])
+		}
+	})();
 
 	async function createNewCategory () {
-		if (typeof name !== 'undefined' && name !== '') {
+		if (typeof name !== 'undefined' && name !== '' && image) {
 			try {
-				const id = await indexedDB.addCategory(name);
+				const id = await indexedDB.addCategory(name, image);
 
-				customCategoriesStore.addCategory({ id, name });
+				customCategoriesStore.addCategory({ id, name, image });
 
 			} catch (e) {
 				console.log(e);
 			}
 
 			name = '';
+			files = undefined;
+			image = undefined;
 			noCategoryNameError = false;
 		} else {
 			noCategoryNameError = true
@@ -30,15 +41,17 @@
 
 <div class="card">
 	<h5 class="card-header card-title">
-		<div style="width: 100%;">
-			<input
-					bind:value={name}
-					placeholder="{$i18nStore.texts.newCategory}"
-					type="text"
-					class="form-control form-control-lg"
-					class:is-invalid={noCategoryNameError}
-			/>
-		</div>
+		<label>
+			<img src="{image ? image : '/images/upload-image.svg'}" class="thumbnail" />
+			<input bind:files={files} class="visibleButHidden" type="file" accept="image/*" />
+		</label>
+		<input
+				bind:value={name}
+				placeholder="{$i18nStore.texts.newCategory}"
+				type="text"
+				class="form-control form-control-lg"
+				class:is-invalid={noCategoryNameError}
+		/>
 		<div class="cta">
 			<span on:click={createNewCategory}><i class="fas fa-check"></i></span>
 		</div>
@@ -80,5 +93,15 @@
 		background-color: initial !important;
 		outline: none !important;
 		box-shadow: none !important;;
+	}
+	:global(.thumbnail) {
+		width: 100px;
+		height: 100px;
+		object-fit: cover;
+		margin-right: 1rem;
+		cursor: pointer;
+	}
+	input[type="text"] {
+		flex: 1;
 	}
 </style>

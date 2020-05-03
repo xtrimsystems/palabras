@@ -52,11 +52,11 @@ class IndexedDB extends CustomEventTarget
 		})
 	}
 
-	public async addCategory(categoryName: string): Promise<number>
+	public async addCategory(name: string, image: string): Promise<number>
 	{
 		return new Promise<number>((resolve, reject) => {
 			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
-			const request = store.add({ name: categoryName });
+			const request = store.add({ name, image });
 			// @ts-ignore
 			request.onsuccess = () => resolve(request.result);
 			request.onerror = (e) => reject(e);
