@@ -32,3 +32,14 @@
 	</div>
 	{/each}
 </div>
+
+<style>
+	.card {
+		justify-content: center;
+		align-items: center;
+		min-width: 500px;
+	}
+	.card-img-top {
+		width: auto !important;
+	}
+</style>

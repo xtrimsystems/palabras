@@ -4,6 +4,7 @@
 	import { i18nStore } from './Stores/I18nStore.ts';
 	import { indexedDB } from './IndexDB/IndexedDB.ts'
 	import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
+	import { JsonFile } from './Helpers/JsonFile.ts'
 
 	import CustomCategory from './CustomCategory.svelte';
 
@@ -11,6 +12,7 @@
 	let noCategoryNameError = false;
 	let image;
 	let files;
+	let jsonFile;
 
 	$: (async function imgToBase64() {
 		if (files && files[0] && files[0].type.includes('image')) {
@@ -18,16 +20,29 @@
 		}
 	})();
 
-	async function createNewCategory () {
+	$: (async function readFile() {
+		if (jsonFile && jsonFile[0] && jsonFile[0].type.includes('json')) {
+			const categories = JSON.parse(await JsonFile.deserialize(jsonFile[0]));
+
+			categories.forEach(({ name, image }) => createNewCategory(name, image));
+		}
+	})();
+
+	async function createNewCategory (name, image) {
+		try {
+			const id = await indexedDB.addCategory(name, image);
+
+			customCategoriesStore.addCategory({ id, name, image });
+
+		} catch (e) {
+			console.log(e);
+		}
+	}
+
+	async function saveNewCategory () {
 		if (typeof name !== 'undefined' && name !== '' && image) {
-			try {
-				const id = await indexedDB.addCategory(name, image);
 
-				customCategoriesStore.addCategory({ id, name, image });
-
-			} catch (e) {
-				console.log(e);
-			}
+			await createNewCategory(name, image);
 
 			name = '';
 			files = undefined;
@@ -37,9 +52,28 @@
 			noCategoryNameError = true
 		}
 	}
+
+	function exportData() {
+		console.log($customCategoriesStore);
+		const element = document.createElement('a');
+		element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify($customCategoriesStore)));
+		element.setAttribute('download', 'categories.json');
+
+		element.style.display = 'none';
+		document.body.appendChild(element);
+
+		element.click();
+
+		document.body.removeChild(element);
+	}
 </script>
 
 <div class="card">
+	<button on:click={exportData} class="btn btn-primary">Export</button>
+	<label class="btn btn-primary">
+		Import
+		<input bind:files={jsonFile} class="visibleButHidden" type="file" accept="application/json" />
+	</label>
 	<h5 class="card-header card-title">
 		<label>
 			<img src="{image ? image : '/images/upload-image.svg'}" class="thumbnail" />
@@ -53,7 +87,7 @@
 				class:is-invalid={noCategoryNameError}
 		/>
 		<div class="cta">
-			<span on:click={createNewCategory}><i class="fas fa-check"></i></span>
+			<span on:click={saveNewCategory}><i class="fas fa-check"></i></span>
 		</div>
 	</h5>
 </div>

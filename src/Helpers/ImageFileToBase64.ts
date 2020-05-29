@@ -10,15 +10,58 @@ export class ImageFileToBase64
 				const img = new Image();
 
 				img.addEventListener('load', () => {
+					let resizeRatio = 1;
 
-					canvas.width = img.width;
-					canvas.height = img.height;
+					if (img.width > img.height) {
+						resizeRatio = img.width > 500 ? img.width / 500 : 1;
+						if (img.height / resizeRatio > 300) {
+							resizeRatio = img.height / 300;
+						}
+					} else {
+						resizeRatio = img.height > 300 ? img.height / 300 : resizeRatio;
+						if (img.width / resizeRatio > 500) {
+							resizeRatio = img.width / 500;
+						}
+					}
+
+					const canvasWidth = img.width / resizeRatio;
+					const canvasHeight = img.height / resizeRatio;
+
+					canvas.width = canvasWidth;
+					canvas.height = canvasHeight;
 
 					ctx.clearRect(0, 0, 0, 0);
 
-					ImageFileToBase64.drawImageProperly(ctx, img, 0, 0, img.width, img.height);
+					ImageFileToBase64.drawImageProperly(ctx, img, 0, 0, canvasWidth, canvasHeight);
 
-					const base64Img = canvas.toDataURL(file.type, 0.3);
+					let data;
+
+					//get the current ImageData for the canvas.
+					data = ctx.getImageData(0, 0, canvasWidth, canvasHeight);
+
+					//store the current globalCompositeOperation
+					const compositeOperation = ctx.globalCompositeOperation;
+
+					//set to draw behind current content
+					ctx.globalCompositeOperation = "destination-over";
+
+					//set background color
+					ctx.fillStyle = '#ffffff';
+
+					//draw background / rect on entire canvas
+					ctx.fillRect(0, 0, canvasWidth, canvasHeight);
+
+					//get the image data from the canvas
+					const base64Img = canvas.toDataURL('image/jpeg', 0.2);
+
+					//clear the canvas
+					ctx.clearRect (0,0, canvasWidth, canvasHeight);
+
+					//restore it with original / cached ImageData
+					ctx.putImageData(data, 0,0);
+
+					//reset the globalCompositeOperation to what it was
+					ctx.globalCompositeOperation = compositeOperation;
 
 					ctx.clearRect(0, 0, 0, 0);
 
