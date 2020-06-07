@@ -10,13 +10,19 @@
 	import CustomCategories from './CustomCategories.svelte';
 	import NavBar from './NavBar.svelte';
 
-	let voices: SpeechSynthesisVoice[] = [];
+	let voices: SpeechSynthesisVoice[];
 	let colorTheme;
+	let isSidebarOpen = false;
 
 	speechSynthesis.addEventListener('onLoad', (e, data) => {
 		speechSynthesis.setVoice($configurationStore.language);
 		voices = data;
 	});
+
+	function startGame () {
+		speechSynthesis.readOutLoud($i18nStore.texts.letsStart);
+		voices = [];
+	}
 
 	$: speechSynthesis.setVoice($configurationStore.language);
 	$: colorTheme = ColorThemeBuilder.build($configurationStore.colorThemeType);
@@ -26,28 +32,36 @@
 	<title>{$i18nStore.texts.appName}</title>
 </svelte:head>
 
-<main use:CssVars="{colorTheme}" class="container-xl">
-{#if voices.length > 0}
-	<NavBar />
-	{#if !$configurationStore.isCustomCategoriesOpen}
-	<div class:visibleButHidden="{$configurationStore.isConfigurationOpen}">
-		<Board />
-	</div>
-	{/if}
-	{#if $configurationStore.isConfigurationOpen}
-		<Configuration voices="{voices}" />
-	{/if}
-	{#if $configurationStore.isCustomCategoriesOpen}
-		<CustomCategories />
+<main use:CssVars="{colorTheme}" class="container-xl" class:isSidebarOpen>
+{#if voices}
+	{#if voices.length > 0}
+		<NavBar bind:isSidebarOpen={isSidebarOpen} />
+		{#if !$configurationStore.isCustomCategoriesOpen}
+		<div class:visibleButHidden="{$configurationStore.isConfigurationOpen}">
+			<Board />
+		</div>
+		{/if}
+		{#if $configurationStore.isConfigurationOpen}
+			<Configuration voices="{voices}" />
+		{/if}
+		{#if $configurationStore.isCustomCategoriesOpen}
+			<CustomCategories />
+		{/if}
+	{:else}
+		<div>Install speech synthesis voices</div>
 	{/if}
 {:else}
-	<button on:click={() => speechSynthesis.readOutLoud($i18nStore.texts.letsStart)} class="btn btn-primary btn-lg btn-block">{$i18nStore.texts.start}</button>
+	<button on:click={startGame} class="btn btn-primary btn-lg btn-block">{$i18nStore.texts.start}</button>
 {/if}
 </main>
 
 <style>
 	main {
 		padding: 0;
+	}
+	main.isSidebarOpen {
+		overflow: hidden;
+		height: 100vh;
 	}
 	:global(.visibleButHidden) {
 		position: absolute;

@@ -69,11 +69,6 @@
 </script>
 
 <div class="card">
-	<button on:click={exportData} class="btn btn-primary">Export</button>
-	<label class="btn btn-primary">
-		Import
-		<input bind:files={jsonFile} class="visibleButHidden" type="file" accept="application/json" />
-	</label>
 	<h5 class="card-header card-title">
 		<label>
 			<img src="{image ? image : '/images/upload-image.svg'}" class="thumbnail" />
@@ -96,6 +91,13 @@
     <CustomCategory bind:category="{category}" />
 {/each}
 </div>
+
+<button on:click={exportData} class="btn btn-primary">Export</button>
+<label class="btn btn-primary">
+	Import
+	<input bind:files={jsonFile} class="visibleButHidden" type="file" accept="application/json" />
+</label>
+
 
 <style>
 	:global(.card-title) {
