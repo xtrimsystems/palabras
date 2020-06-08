@@ -1,7 +1,7 @@
 <script lang="ts">
     import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
     import { JsonFile } from './Helpers/JsonFile.ts'
-    import { createNewCategory } from "./Writers/CategoriesWriter";
+    import { createNewCategory } from './Writers/CategoriesWriter.ts';
 
     let jsonFile;
 
@@ -26,8 +26,22 @@
         document.body.removeChild(element);
     }
 </script>
-<button on:click={exportData} class="btn btn-primary">Export</button>
-<label class="btn btn-primary">
-    Import
-    <input bind:files={jsonFile} class="visibleButHidden" type="file" accept="application/json" />
-</label>
+<div class="dropleft">
+    <i class="fas fa-ellipsis-h" id="customCategoriesMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></i>
+    <div class="dropdown-menu" aria-labelledby="customCategoriesMenuButton">
+        <div class="dropdown-item" on:click={() => console.log('Create new category')}>New</div>
+        <div class="dropdown-divider"></div>
+        <div class="dropdown-item" on:click={exportData}>Export</div>
+        <div class="dropdown-divider"></div>
+        <label class="dropdown-item">
+            Import
+            <input bind:files={jsonFile} class="visibleButHidden" type="file" accept="application/json" />
+        </label>
+    </div>
+</div>
+
+<style>
+    #customCategoriesMenuButton {
+        color: var(--lightBackgroundColor);
+    }
+</style>

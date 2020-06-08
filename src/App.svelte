@@ -9,6 +9,7 @@
 	import Board from './Board.svelte';
 	import CustomCategories from './CustomCategories.svelte';
 	import NavBar from './NavBar.svelte';
+	import CustomCategoriesMenu from "./CustomCategoriesMenu.svelte";
 
 	let voices: SpeechSynthesisVoice[];
 	let colorTheme;
@@ -19,7 +20,7 @@
 		voices = data;
 	});
 
-	function startGame () {
+	function startGame() {
 		speechSynthesis.readOutLoud($i18nStore.texts.letsStart);
 		voices = [];
 	}
@@ -35,7 +36,11 @@
 <main use:CssVars="{colorTheme}" class="container-xl" class:isSidebarOpen>
 {#if voices}
 	{#if voices.length > 0}
-		<NavBar bind:isSidebarOpen={isSidebarOpen} />
+		<NavBar bind:isSidebarOpen={isSidebarOpen}>
+			{#if $configurationStore.isCustomCategoriesOpen}
+			<CustomCategoriesMenu />
+			{/if}
+		</NavBar>
 		{#if !$configurationStore.isCustomCategoriesOpen}
 		<div class:visibleButHidden="{$configurationStore.isConfigurationOpen}">
 			<Board />
