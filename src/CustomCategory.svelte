@@ -1,72 +1,56 @@
 <script lang="ts">
-	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { customStagesStore } from './Stores/CustomStagesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
-	import { indexedDB } from './IndexDB/IndexedDB.ts'
 	import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
+	import { deleteCategory, updateCategory } from "./Writers/CategoriesWriter.ts";
+	import { createNewStage } from "./Writers/StagesWriter.ts";
 
 	import CustomStage from './CustomStage.svelte';
 
 	export let category;
 	let stages;
-	let word;
-	let image;
-	let files;
-	let categoryFiles;
-	let categoryId;
+	let newStageWord;
+	let newStageImage;
+	let newStageFormFiles;
+	let editCategoryFormFiles;
 	let isEditable = false;
 	let categoryNameBeforeChange;
 	let categoryImageBeforeChange;
 	let noStageWordError = false;
 
 	$: stages = $customStagesStore.filter((stg) => stg.categoryId === category.id);
-	$: categoryId = category ? category.id : undefined;
 	$: (async function imgToBase64() {
-		if (files && files[0] && files[0].type.includes('image')) {
-			image = await ImageFileToBase64.convert(files[0])
+		if (newStageFormFiles && newStageFormFiles[0] && newStageFormFiles[0].type.includes('image')) {
+			newStageImage = await ImageFileToBase64.convert(newStageFormFiles[0])
 		}
 	})();
 	$: (async function imgToBase64() {
-		if (categoryFiles && categoryFiles[0] && categoryFiles[0].type.includes('image')) {
-			category.image = await ImageFileToBase64.convert(categoryFiles[0])
+		if (editCategoryFormFiles && editCategoryFormFiles[0] && editCategoryFormFiles[0].type.includes('image')) {
+			category.imageBase64 = await ImageFileToBase64.convert(editCategoryFormFiles[0])
 		}
 	})();
 
-	async function deleteCategory () {
-		const deleted = await indexedDB.removeCategory(categoryId);
-
-		if (deleted) {
-			customStagesStore.removeStagesOfCategory(categoryId)
-			customCategoriesStore.removeCategory(category);
-		}
+	async function onClickDeleteCategory () {
+		await deleteCategory(category);
 	}
 
-	async function updateCategory() {
-		const updated = await indexedDB.updateCategory(category);
-
-		if (updated) {
-			customCategoriesStore.updateCategory(category);
+	async function onClickUpdateCategory() {
+		if (await updateCategory(category)) {
 			isEditable = false;
 		}
 	}
 
-	async function createNewStage () {
+	async function saveNewStage () {
+		if (typeof newStageWord !== 'undefined' && newStageWord !== '' && newStageImage) {
 
-		if (typeof word !== 'undefined' && word !== '' && image) {
-			try {
-				const categoryId = category.id;
-				const id = await indexedDB.addStage(word, image, categoryId);
-
-				customStagesStore.addStage({ id, word, image, categoryId});
-
-			} catch (e) {
-				console.log(e);
+			if (await createNewStage(newStageWord, newStageImage, category.id)) {
+				newStageWord = '';
+				newStageFormFiles = undefined;
+				newStageImage = undefined;
+				noStageWordError = false;
+			} else {
+				// TODO: Show there was an error
 			}
-
-			word = '';
-			files = undefined;
-			image = undefined;
-			noStageWordError = false;
 		} else {
 			noStageWordError = true;
 		}
@@ -74,26 +58,26 @@
 
 	function editCategory() {
 		categoryNameBeforeChange = category.name;
-		categoryImageBeforeChange = category.image;
+		categoryImageBeforeChange = category.imageBase64;
 		isEditable = true
 	}
 
 	function cancelEditCategory () {
 		category.name = categoryNameBeforeChange;
-		category.image = categoryImageBeforeChange;
+		category.imageBase64 = categoryImageBeforeChange;
 		isEditable = false;
 	}
 </script>
 
 <div class="card">
-	<h5 id="category-card-{categoryId}" class="card-header card-title" data-toggle="collapse" data-target="#collapse-{categoryId}" aria-controls="collapse-{categoryId}">
+	<h5 id="category-card-{category.id}" class="card-header card-title" data-toggle="collapse" data-target="#collapse-{category.id}" aria-controls="collapse-{category.id}">
 		{#if isEditable}
 			<label on:click|stopPropagation>
-				<img src="{category.image}" class="thumbnail" />
-				<input bind:files={categoryFiles} class="visibleButHidden" type="file" accept="image/*" />
+				<img src="{category.imageBase64}" class="thumbnail" />
+				<input bind:files={editCategoryFormFiles} class="visibleButHidden" type="file" accept="image/*" />
 			</label>
 		{:else}
-			<img src="{category.image}" alt="{category.name}" class="thumbnail" />
+			<img src="{category.imageBase64}" alt="{category.name}" class="thumbnail" />
 		{/if}
         <input
 			on:click={(e) => isEditable ? e.stopPropagation() : ''}
@@ -105,29 +89,29 @@
 		/>
 		<div class="cta">
 			{#if isEditable}
-				<span class="action" on:click|stopPropagation={deleteCategory}><i class="far fa-trash-alt"></i></span>
+				<span class="action" on:click|stopPropagation={onClickDeleteCategory}><i class="far fa-trash-alt"></i></span>
 				<span class="action" on:click|stopPropagation={cancelEditCategory}><i class="fas fa-times"></i></span>
-				<span class="action" on:click|stopPropagation={updateCategory}><i class="fas fa-check"></i></span>
+				<span class="action" on:click|stopPropagation={onClickUpdateCategory}><i class="fas fa-check"></i></span>
 			{:else}
 				<span on:click|stopPropagation={editCategory}><i class="far fa-edit"></i></span>
 			{/if}
 		</div>
 	</h5>
-	<ul id="collapse-{categoryId}" class="collapse list-group list-group-flush" aria-labelledby="category-card-{categoryId}" data-parent="#categoriesAccordion">
+	<ul id="collapse-{category.id}" class="collapse list-group list-group-flush" aria-labelledby="category-card-{category.id}" data-parent="#categoriesAccordion">
 		<li class="list-group-item">
 			<label>
-				<img src="{image ? image : '/images/upload-image.svg'}" class="thumbnail" />
-				<input bind:files={files} class="visibleButHidden" type="file" accept="image/*" />
+				<img src="{newStageImage ? newStageImage : '/images/upload-image.svg'}" class="thumbnail" />
+				<input bind:files={newStageFormFiles} class="visibleButHidden" type="file" accept="image/*" />
 			</label>
 			<input
-				bind:value={word}
+				bind:value={newStageWord}
 				class="form-control form-control-lg"
 				type="text"
 				placeholder="{$i18nStore.texts.newStage}"
 				class:is-invalid={noStageWordError}
 			>
 			<div class="cta">
-				<span on:click={createNewStage}><i class="fas fa-check"></i></span>
+				<span on:click={saveNewStage}><i class="fas fa-check"></i></span>
 			</div>
 		</li>
 		{#each stages as stage}

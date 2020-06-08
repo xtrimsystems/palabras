@@ -29,6 +29,7 @@
 	<button on:click|preventDefault={toggleSideBarState} class="navbar-toggler">
 		<span class="navbar-toggler-icon"></span>
 	</button>
+	<slot></slot>
 </nav>
 {#if isSidebarOpen}
 <div class="sidebar">

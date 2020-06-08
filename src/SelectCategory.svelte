@@ -22,7 +22,7 @@
 	<div class="col mb-4">
 		<label style="cursor:pointer">
 			<div class="card">
-				<img src="{cat.image}" class="card-img-top" alt="{cat.name}">
+				<img src="{cat.imageBase64}" class="card-img-top" alt="{cat.name}">
 				<div class="card-body">
 					<h5 class="card-title">{cat.name}</h5>
 				</div>

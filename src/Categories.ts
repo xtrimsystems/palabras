@@ -8,17 +8,17 @@ export const Categories: I18nCategories[] = [
 			{
 				id: -1,
 				name: 'Animales',
-				image: 'images/animals.webp'
+				imageBase64: 'images/animals.webp'
 			},
 			{
 				id: -2,
 				name: 'Familia',
-				image: 'images/family.png'
+				imageBase64: 'images/family.png'
 			},
 			{
 				id: -3,
 				name: 'Chuches',
-				image: 'images/candy.jpg'
+				imageBase64: 'images/candy.jpg'
 			}
 		],
 		stages: [
@@ -26,163 +26,163 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				categoryId: -1,
 				word: 'ardilla',
-				image: 'images/words/ardilla.jpg'
+				imageBase64: 'images/words/ardilla.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'caballo',
-				image: 'images/words/caballo.jpg'
+				imageBase64: 'images/words/caballo.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'cebra',
-				image: 'images/words/cebra.jpg'
+				imageBase64: 'images/words/cebra.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'ciervo',
-				image: 'images/words/ciervo.jpg'
+				imageBase64: 'images/words/ciervo.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'conejo',
-				image: 'images/words/conejo.jpg'
+				imageBase64: 'images/words/conejo.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'elefante',
-				image: 'images/words/elefante.jpg'
+				imageBase64: 'images/words/elefante.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'gallina',
-				image: 'images/words/gallina.jpg'
+				imageBase64: 'images/words/gallina.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'gato',
-				image: 'images/words/gato.jpg'
+				imageBase64: 'images/words/gato.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'lemur',
-				image: 'images/words/lemur.jpg'
+				imageBase64: 'images/words/lemur.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'oso',
-				image: 'images/words/oso.jpg'
+				imageBase64: 'images/words/oso.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'panda',
-				image: 'images/words/panda.jpg'
+				imageBase64: 'images/words/panda.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'periquito',
-				image: 'images/words/periquito.jpg'
+				imageBase64: 'images/words/periquito.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'perro',
-				image: 'images/words/perro.jpg'
+				imageBase64: 'images/words/perro.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'tortuga',
-				image: 'images/words/tortuga.jpg'
+				imageBase64: 'images/words/tortuga.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'vaca',
-				image: 'images/words/vaca.jpg'
+				imageBase64: 'images/words/vaca.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'yegua',
-				image: 'images/words/yegua.jpg'
+				imageBase64: 'images/words/yegua.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'abuela',
-				image: 'images/words/abuela.png',
+				imageBase64: 'images/words/abuela.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'abuelo',
-				image: 'images/words/abuelo.png',
+				imageBase64: 'images/words/abuelo.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'andres',
-				image: 'images/words/andres.png',
+				imageBase64: 'images/words/andres.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'dani',
-				image: 'images/words/dani.png',
+				imageBase64: 'images/words/dani.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'mama',
-				image: 'images/words/mama.png',
+				imageBase64: 'images/words/mama.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'martina',
-				image: 'images/words/martina.png',
+				imageBase64: 'images/words/martina.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'papa',
-				image: 'images/words/papa.png',
+				imageBase64: 'images/words/papa.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'sara',
-				image: 'images/words/sara.png',
+				imageBase64: 'images/words/sara.png',
 			},
 			{
 				id: -1,
 				categoryId: -2,
 				word: 'sophie',
-				image: 'images/words/sophie.png',
+				imageBase64: 'images/words/sophie.png',
 			},
 			{
 				id: -1,
 				categoryId: -3,
 				word: 'caramelo',
-				image: 'images/words/caramelo.png'
+				imageBase64: 'images/words/caramelo.png'
 			},
 			{
 				id: -1,
 				categoryId: -3,
 				word: 'chupachups',
-				image: 'images/words/chupa-chups.jpg'
+				imageBase64: 'images/words/chupa-chups.jpg'
 			}
 		]
 	},
@@ -192,7 +192,7 @@ export const Categories: I18nCategories[] = [
 			{
 				id: -1,
 				name: 'Animals',
-				image: 'images/animals.webp'
+				imageBase64: 'images/animals.webp'
 			}
 		],
 		stages: [
@@ -200,7 +200,7 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				categoryId: -1,
 				word: 'squirrel',
-				image: 'images/words/ardilla.jpg'
+				imageBase64: 'images/words/ardilla.jpg'
 			}
 		]
 	}

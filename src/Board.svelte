@@ -101,7 +101,7 @@
 			/>
 
 			<div class="image">
-				<img src="{stages[0].image}" alt="{stages[0].word}">
+				<img src="{stages[0].imageBase64}" alt="{stages[0].word}">
 			</div>
 
 			<button class="btn btn-secondary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>

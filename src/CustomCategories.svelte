@@ -1,81 +1,45 @@
 <script lang="ts">
-	import { configurationStore } from './Stores/ConfigurationStore.ts';
 	import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
 	import { i18nStore } from './Stores/I18nStore.ts';
-	import { indexedDB } from './IndexDB/IndexedDB.ts'
 	import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
-	import { JsonFile } from './Helpers/JsonFile.ts'
+	import { createNewCategory } from "./Writers/CategoriesWriter.ts";
 
 	import CustomCategory from './CustomCategory.svelte';
 
-	let name;
+	let newCategoryName;
 	let noCategoryNameError = false;
-	let image;
+	let newCategoryImage;
 	let files;
-	let jsonFile;
 
 	$: (async function imgToBase64() {
 		if (files && files[0] && files[0].type.includes('image')) {
-			image = await ImageFileToBase64.convert(files[0])
+			newCategoryImage = await ImageFileToBase64.convert(files[0])
 		}
 	})();
-
-	$: (async function readFile() {
-		if (jsonFile && jsonFile[0] && jsonFile[0].type.includes('json')) {
-			const categories = JSON.parse(await JsonFile.deserialize(jsonFile[0]));
-
-			categories.forEach(({ name, image }) => createNewCategory(name, image));
-		}
-	})();
-
-	async function createNewCategory (name, image) {
-		try {
-			const id = await indexedDB.addCategory(name, image);
-
-			customCategoriesStore.addCategory({ id, name, image });
-
-		} catch (e) {
-			console.log(e);
-		}
-	}
 
 	async function saveNewCategory () {
-		if (typeof name !== 'undefined' && name !== '' && image) {
+		if (typeof newCategoryName !== 'undefined' && newCategoryName !== '' && newCategoryImage) {
 
-			await createNewCategory(name, image);
+			await createNewCategory(newCategoryName, newCategoryImage);
 
-			name = '';
+			newCategoryName = '';
 			files = undefined;
-			image = undefined;
+			newCategoryImage = undefined;
 			noCategoryNameError = false;
 		} else {
 			noCategoryNameError = true
 		}
-	}
-
-	function exportData() {
-		console.log($customCategoriesStore);
-		const element = document.createElement('a');
-		element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify($customCategoriesStore)));
-		element.setAttribute('download', 'categories.json');
-
-		element.style.display = 'none';
-		document.body.appendChild(element);
-
-		element.click();
-
-		document.body.removeChild(element);
 	}
 </script>
 
 <div class="card">
 	<h5 class="card-header card-title">
 		<label>
-			<img src="{image ? image : '/images/upload-image.svg'}" class="thumbnail" />
+			<img src="{newCategoryImage ? newCategoryImage : '/images/upload-image.svg'}" class="thumbnail" />
 			<input bind:files={files} class="visibleButHidden" type="file" accept="image/*" />
 		</label>
 		<input
-				bind:value={name}
+				bind:value={newCategoryName}
 				placeholder="{$i18nStore.texts.newCategory}"
 				type="text"
 				class="form-control form-control-lg"
@@ -91,13 +55,6 @@
     <CustomCategory bind:category="{category}" />
 {/each}
 </div>
-
-<button on:click={exportData} class="btn btn-primary">Export</button>
-<label class="btn btn-primary">
-	Import
-	<input bind:files={jsonFile} class="visibleButHidden" type="file" accept="application/json" />
-</label>
-
 
 <style>
 	:global(.card-title) {

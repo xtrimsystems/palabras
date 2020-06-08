@@ -28,16 +28,17 @@ class IndexedDB extends CustomEventTarget
 			);
 
 			categoriesStore.createIndex('name', 'name', { unique: true });
+			categoriesStore.createIndex('imageBase64', 'imageBase64');
 
 			// @ts-ignore
-			const wordsStore = evt.currentTarget.result.createObjectStore(
+			const stagesStore = evt.currentTarget.result.createObjectStore(
 				this.DB_STORE_STAGES,
 				{ keyPath: 'id', autoIncrement: true }
 			);
 
-			wordsStore.createIndex('categoryId', 'categoryId');
-			wordsStore.createIndex('word', 'word');
-			wordsStore.createIndex('image', 'image');
+			stagesStore.createIndex('categoryId', 'categoryId');
+			stagesStore.createIndex('name', 'name');
+			stagesStore.createIndex('imageBase64', 'imageBase64');
 		};
 	}
 
@@ -52,22 +53,11 @@ class IndexedDB extends CustomEventTarget
 		})
 	}
 
-	public async addCategory(name: string, image: string): Promise<number>
+	public async addCategory(name: string, imageBase64: string): Promise<number>
 	{
 		return new Promise<number>((resolve, reject) => {
 			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
-			const request = store.add({ name, image });
-			// @ts-ignore
-			request.onsuccess = () => resolve(request.result);
-			request.onerror = (e) => reject(e);
-		});
-	}
-
-	public async updateCategory(category: Category): Promise<Category>
-	{
-		return new Promise<Category>((resolve, reject) => {
-			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
-			const request = store.put(category);
+			const request = store.add({ name, imageBase64 });
 			// @ts-ignore
 			request.onsuccess = () => resolve(request.result);
 			request.onerror = (e) => reject(e);
@@ -89,6 +79,17 @@ class IndexedDB extends CustomEventTarget
 		});
 	}
 
+	public async updateCategory(category: Category): Promise<Category>
+	{
+		return new Promise<Category>((resolve, reject) => {
+			const store = this.getObjectStore(this.DB_STORE_CATEGORIES, 'readwrite');
+			const request = store.put(category);
+			// @ts-ignore
+			request.onsuccess = () => resolve(request.result);
+			request.onerror = (e) => reject(e);
+		});
+	}
+
 	public async getStages(): Promise<Stage[]>
 	{
 		return new Promise<Stage[]>((resolve, reject) => {
@@ -100,11 +101,11 @@ class IndexedDB extends CustomEventTarget
 		})
 	}
 
-	public async addStage(word: string, image: string, categoryId: number): Promise<number>
+	public async addStage(word: string, imageBase64: string, categoryId: number): Promise<number>
 	{
 		return new Promise<number>((resolve, reject) => {
 			const store = this.getObjectStore(this.DB_STORE_STAGES, 'readwrite');
-			const request = store.add({ word, image, categoryId });
+			const request = store.add({ word, imageBase64, categoryId });
 			// @ts-ignore
 			request.onsuccess = () => resolve(request.result)
 			request.onerror = (e) => reject(e);

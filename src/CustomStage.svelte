@@ -1,45 +1,39 @@
 <script lang="ts">
 	import { customStagesStore } from './Stores/CustomStagesStore.ts';
 	import { indexedDB } from './IndexDB/IndexedDB.ts'
+	import { deleteStage, updateStage } from "./Writers/StagesWriter.ts";
 	import { ImageFileToBase64 } from './Helpers/ImageFileToBase64.ts'
 
 	export let stage;
 	let isEditable = false;
 	let stageWordBeforeChange;
 	let stageImageBeforeChange;
-	let files;
+	let editStageFormFiles;
 	$: (async function imgToBase64() {
-		if (files && files[0] && files[0].type.includes('image')) {
-			stage.image = await ImageFileToBase64.convert(files[0])
+		if (editStageFormFiles && editStageFormFiles[0] && editStageFormFiles[0].type.includes('image')) {
+			stage.imageBase64 = await ImageFileToBase64.convert(editStageFormFiles[0])
 		}
 	})();
 
-    async function deleteStage () {
-	    const deleted = await indexedDB.removeStage(stage.id);
+	async function onClickDeleteStage () {
+		await deleteStage(stage);
+	}
 
-	    if (deleted) {
-		    customStagesStore.removeStage(stage);
-	    }
-    }
-
-	async function updateStage() {
-		const updated = await indexedDB.updateStage(stage);
-
-		if (updated) {
-			customStagesStore.updateStage(stage);
+	async function onClickUpdateStage() {
+		if (await updateStage(stage)) {
 			isEditable = false;
 		}
 	}
 
-	function editStage() {
+	function onClickEditStage() {
 		stageWordBeforeChange = stage.word;
-		stageImageBeforeChange = stage.image;
+		stageImageBeforeChange = stage.imageBase64;
 		isEditable = true
 	}
 
-	function cancelEditStage () {
+	function onClickCancelEditStage () {
 		stage.word = stageWordBeforeChange;
-		stage.image = stageImageBeforeChange;
+		stage.imageBase64 = stageImageBeforeChange;
 		isEditable = false;
 	}
 </script>
@@ -47,11 +41,11 @@
 <li class="list-group-item">
 	{#if isEditable}
 		<label>
-			<img src="{stage.image}" class="thumbnail" />
-			<input bind:files={files} class="visibleButHidden" type="file" accept="image/*" />
+			<img src="{stage.imageBase64}" class="thumbnail" />
+			<input bind:files={editStageFormFiles} class="visibleButHidden" type="file" accept="image/*" />
 		</label>
 	{:else}
-		<img src="{stage.image}" alt="{stage.word}" class="thumbnail" />
+		<img src="{stage.imageBase64}" alt="{stage.word}" class="thumbnail" />
 	{/if}
 	<input
 		bind:value={stage.word}
@@ -62,11 +56,11 @@
 	>
 	<div class="cta">
 		{#if isEditable}
-			<span on:click={() => deleteStage()}><i class="far fa-trash-alt"></i></span>
-			<span class="action" on:click={cancelEditStage}><i class="fas fa-times"></i></span>
-			<span class="action" on:click={updateStage}><i class="fas fa-check"></i></span>
+			<span on:click={onClickDeleteStage}><i class="far fa-trash-alt"></i></span>
+			<span class="action" on:click={onClickCancelEditStage}><i class="fas fa-times"></i></span>
+			<span class="action" on:click={onClickUpdateStage}><i class="fas fa-check"></i></span>
 		{:else}
-			<span on:click={editStage}><i class="far fa-edit"></i></span>
+			<span on:click={onClickEditStage}><i class="far fa-edit"></i></span>
 		{/if}
 	</div>
 </li>

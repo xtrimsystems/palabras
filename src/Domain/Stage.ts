@@ -2,5 +2,5 @@ export interface Stage {
 	id: number;
 	categoryId: number,
 	word: string,
-	image: string,
+	imageBase64: string,
 }
