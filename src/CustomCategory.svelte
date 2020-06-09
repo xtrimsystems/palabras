@@ -121,6 +121,11 @@
 </div>
 
 <style>
+	:global(.list-group-item) {
+		display: flex;
+		align-items: center;
+		position: relative;
+	}
 	[data-toggle="collapse"] {
 		cursor: pointer;
 	}

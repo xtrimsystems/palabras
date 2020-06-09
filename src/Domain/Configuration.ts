@@ -33,8 +33,9 @@ export interface ColorTheme {
 }
 
 abstract class Color implements ColorTheme {
-	lightgrey: string = '#ececec';
+	lightgrey: string = '#dbdbdb';
 	white: string = '#ffffff';
+	black: string = '#000000';
 	abstract darkBackgroundColor: string;
 	abstract darkFontColor: string;
 	abstract id: ColorThemeType;

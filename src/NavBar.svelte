@@ -58,23 +58,32 @@
 		position: fixed;
 		height: 100vh;
 		z-index: 2;
-		padding: 10px 20px 0;
+		padding-top: 10px;
 		background: var(--white);
+		box-shadow: 14px -6px 11px -12px rgba(0, 0, 0, 0.7)
+	}
+	.nav-item {
+		position: relative;
+		padding: 2px 20px;
+		cursor: pointer;
+		transition: background-color 0.5s ease;
+	}
+	.nav-item.active {
+		background-color: var(--lightBackgroundColor) !important;
+	}
+	.nav-item:hover {
+		background-color: var(--lightgrey);
 	}
 	.overlay {
 		position: fixed;
 		width: 100vw;
 		height: 100vh;
 		z-index: 1;
-		background: rgba(0, 0, 0, 0.7);
+		background-color: rgba(0,0,0,0.3);
 	}
 	@media (min-width: 1200px) {
 		.overlay {
 			width: 1140px;
 		}
-	}
-	.active {
-		color: var(--mainBackgroundColor);
-		font-weight: bold;
 	}
 </style>

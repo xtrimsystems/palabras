@@ -10,10 +10,12 @@
 	import CustomCategories from './CustomCategories.svelte';
 	import NavBar from './NavBar.svelte';
 	import CustomCategoriesMenu from "./CustomCategoriesMenu.svelte";
+	import CreateCategoryModalForm from "./CreateCategoryModalForm.svelte";
 
 	let voices: SpeechSynthesisVoice[];
 	let colorTheme;
 	let isSidebarOpen = false;
+	let showCreateNewCategoryModalForm = false;
 
 	speechSynthesis.addEventListener('onLoad', (e, data) => {
 		speechSynthesis.setVoice($configurationStore.language);
@@ -36,11 +38,16 @@
 <main use:CssVars="{colorTheme}" class="container-xl" class:isSidebarOpen>
 {#if voices}
 	{#if voices.length > 0}
-		<NavBar bind:isSidebarOpen={isSidebarOpen}>
+		<NavBar bind:isSidebarOpen>
 			{#if $configurationStore.isCustomCategoriesOpen}
-			<CustomCategoriesMenu />
+			<CustomCategoriesMenu bind:showCreateNewCategoryModalForm />
 			{/if}
 		</NavBar>
+
+		{#if showCreateNewCategoryModalForm}
+			<CreateCategoryModalForm on:close="{() => showCreateNewCategoryModalForm = false}" />
+		{/if}
+
 		{#if !$configurationStore.isCustomCategoriesOpen}
 		<div class:visibleButHidden="{$configurationStore.isConfigurationOpen}">
 			<Board />
@@ -74,5 +81,30 @@
 	}
 	:global(.far,.fas) {
 		font-size: 1.5rem;
+	}
+	:global(.card-title) {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		font-size: 1.5rem;
+	}
+	:global(i) {
+		cursor: pointer;
+	}
+	:global(input[readonly]) {
+		border: none !important;
+		background-color: initial !important;
+		outline: none !important;
+		box-shadow: none !important;;
+	}
+	:global(.thumbnail) {
+		width: 100px;
+		height: 100px;
+		object-fit: cover;
+		margin-right: 1rem;
+		cursor: pointer;
+	}
+	input[type="text"] {
+		flex: 1;
 	}
 </style>

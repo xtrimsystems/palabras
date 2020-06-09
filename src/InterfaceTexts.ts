@@ -9,6 +9,7 @@ export interface InterfaceText
 	veryGood: string,
 	category: string,
 	newCategory: string,
+	name: string
 	newStage: string,
 	repeatLetter: string,
 	pressLetter: string,
@@ -16,6 +17,9 @@ export interface InterfaceText
 	start: string,
 	letsStart: string,
 	backToMenu: string,
+	close: string,
+	create: string,
+	uploadPhotoInfo: string,
 }
 
 export interface I18n
@@ -35,13 +39,17 @@ export const InterfaceTexts: I18n[] = [
 			veryGood: 'Muy Bien!',
 			category: 'Categoría',
 			newCategory: 'Nueva Categoría',
+			name: 'Nombre',
 			newStage: 'Nueva Palabra',
 			repeatLetter: 'Repetir letra',
 			pressLetter: 'Teclea la letra',
 			theWordToWriteIs: 'La palabra a escribir es',
 			start: 'Empezar!',
 			letsStart: 'Vamos a empezar!',
-			backToMenu: 'Volver al menu'
+			backToMenu: 'Volver al menu',
+			close: 'Cerrar',
+			create: 'Crear',
+			uploadPhotoInfo: 'Click para cargar foto',
 		}
 	},
 	{
@@ -54,13 +62,17 @@ export const InterfaceTexts: I18n[] = [
 			veryGood: 'Very Good!',
 			category: 'Category',
 			newCategory: 'New Category',
+			name: 'Name',
 			newStage: 'New Word',
 			repeatLetter: 'Repeat letter',
 			pressLetter: 'Press the key',
 			theWordToWriteIs: 'The word to write is',
 			start: 'Start!',
 			letsStart: 'Lets start!',
-			backToMenu: 'Back to menu'
+			backToMenu: 'Back to menu',
+			close: 'Close',
+			create: 'Create',
+			uploadPhotoInfo: 'Click to load photo'
 		}
 	}
 ];
