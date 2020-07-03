@@ -2,17 +2,13 @@ import { indexedDB } from '../IndexDB'
 import { customStagesStore } from '../Stores';
 import { Stage } from "../Domain";
 
-export async function createNewStage (word: string, imageBase64: string, categoryId: number): Promise<boolean>
+export async function createNewStage (word: string, imageBase64: string, categoryId: number): Promise<number>
 {
     const id = await indexedDB.addStage(word, imageBase64, categoryId);
 
-    if (id) {
-        customStagesStore.addStage({ id, word, imageBase64, categoryId});
+    customStagesStore.addStage({ id, word, imageBase64, categoryId});
 
-        return true;
-    }
-
-    return false;
+    return id;
 }
 
 export async function deleteStage (stage: Stage): Promise<boolean>

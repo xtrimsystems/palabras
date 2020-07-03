@@ -2,17 +2,13 @@ import { customCategoriesStore, customStagesStore } from '../Stores';
 import { indexedDB } from '../IndexDB'
 import {Category} from "../Domain";
 
-export async function createNewCategory (name: string, imageBase64: string): Promise<boolean>
+export async function createNewCategory (name: string, imageBase64: string): Promise<number>
 {
     const id = await indexedDB.addCategory(name, imageBase64);
 
-    if (id) {
-        customCategoriesStore.addCategory({ id, name, imageBase64 });
+    customCategoriesStore.addCategory({ id, name, imageBase64 });
 
-        return true;
-    }
-
-    return false;
+    return id;
 }
 
 export async function deleteCategory (category: Category): Promise<boolean>

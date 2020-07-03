@@ -1,23 +1,45 @@
 <script lang="ts">
     import { customCategoriesStore } from './Stores/CustomCategoriesStore.ts';
+    import { customStagesStore } from './Stores/CustomStagesStore.ts';
     import { JsonFile } from './Helpers/JsonFile.ts'
     import { createNewCategory } from './Writers/CategoriesWriter.ts';
+    import { createNewStage } from "./Writers/StagesWriter.ts";
 
     export let showCreateNewCategoryModalForm;
     let jsonFile;
 
     $: (async function readFile() {
         if (jsonFile && jsonFile[0] && jsonFile[0].type.includes('json')) {
-            const categories = JSON.parse(await JsonFile.deserialize(jsonFile[0]));
 
-            categories.forEach(({ name, image }) => createNewCategory(name, image));
+            try {
+                const fileDeserialize = await JsonFile.deserialize(jsonFile[0]);
+                const { categories, stages } = JSON.parse(fileDeserialize);
+                const createCategoriesTasks = categories.map(async ({ id, name, imageBase64 }) => ({ id, newId: await createNewCategory(name, imageBase64)}));
+                const resultCategories = await Promise.all([...createCategoriesTasks]);
+                const createStagesTasks = [];
+
+                resultCategories.forEach(({ id, newId }) =>
+                        stages.forEach(({ categoryId, word, imageBase64 }) =>
+                                id === categoryId ? createStagesTasks.push(createNewStage(word, imageBase64, newId)): false));
+
+                await Promise.all(createStagesTasks);
+
+            } catch (e) {
+                // TODO Show error, probably duplicated category name/stage word
+                console.log(e);
+            }
         }
     })();
 
     function exportData() {
         const element = document.createElement('a');
-        element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify($customCategoriesStore)));
-        element.setAttribute('download', 'categories.json');
+
+        element.setAttribute('href', 'data:application/json;charset=utf-8,' + encodeURIComponent(JSON.stringify({
+            categories: $customCategoriesStore,
+            stages: $customStagesStore,
+        })));
+
+        element.setAttribute('download', 'backup.json');
 
         element.style.display = 'none';
         document.body.appendChild(element);
