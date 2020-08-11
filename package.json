@@ -14,7 +14,7 @@
   "keywords": [],
   "author": "Victor Sanchez Velasco",
   "license": "MIT",
-  "dependencies": {
+  "devDependencies": {
     "@pyoner/svelte-ts-preprocess": "^1.2.1",
     "@pyoner/svelte-types": "^3.4.4-2",
     "browser-sync": "^2.26.7",
