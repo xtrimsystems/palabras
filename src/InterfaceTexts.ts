@@ -32,7 +32,7 @@ export const InterfaceTexts: I18n[] = [
 	{
 		language: LOCALES_ES,
 		texts: {
-			appName: 'Palabras',
+			appName: 'Letras',
 			language: 'Idioma',
 			color: 'Color',
 			showLowerCase: 'Mostrar letras en minúscula',
@@ -55,7 +55,7 @@ export const InterfaceTexts: I18n[] = [
 	{
 		language: LOCALES_EN,
 		texts: {
-			appName: 'Words',
+			appName: 'Letters',
 			language: 'Language',
 			color: 'Color',
 			showLowerCase: 'Show lower case letters',
