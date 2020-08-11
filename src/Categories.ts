@@ -12,21 +12,11 @@ export const Categories: I18nCategories[] = [
 			},
 			{
 				id: -2,
-				name: 'Familia',
-				imageBase64: 'images/family.png'
-			},
-			{
-				id: -3,
-				name: 'Chuches',
-				imageBase64: 'images/candy.jpg'
-			},
-			{
-				id: -4,
 				name: 'Cosas de casa',
 				imageBase64: 'images/house.jpeg'
 			},
 			{
-				id: -5,
+				id: -3,
 				name: 'Partes del cuerpo',
 				imageBase64: 'images/body.png'
 			},
@@ -36,49 +26,49 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				categoryId: -1,
 				word: 'ardilla',
-				imageBase64: 'images/words/ardilla.jpg'
+				imageBase64: 'images/words/squirrel.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'caballo',
-				imageBase64: 'images/words/caballo.jpg'
+				imageBase64: 'images/words/horse-male.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'cebra',
-				imageBase64: 'images/words/cebra.jpg'
+				imageBase64: 'images/words/zebra.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'ciervo',
-				imageBase64: 'images/words/ciervo.jpg'
+				imageBase64: 'images/words/deer.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'conejo',
-				imageBase64: 'images/words/conejo.jpg'
+				imageBase64: 'images/words/rabbit.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'elefante',
-				imageBase64: 'images/words/elefante.jpg'
+				imageBase64: 'images/words/elephant.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'gallina',
-				imageBase64: 'images/words/gallina.jpg'
+				imageBase64: 'images/words/chicken.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'gato',
-				imageBase64: 'images/words/gato.jpg'
+				imageBase64: 'images/words/cat.jpg'
 			},
 			{
 				id: -1,
@@ -90,7 +80,7 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				categoryId: -1,
 				word: 'oso',
-				imageBase64: 'images/words/oso.jpg'
+				imageBase64: 'images/words/bear.jpg'
 			},
 			{
 				id: -1,
@@ -102,353 +92,287 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				categoryId: -1,
 				word: 'periquito',
-				imageBase64: 'images/words/periquito.jpg'
+				imageBase64: 'images/words/parakeet.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'perro',
-				imageBase64: 'images/words/perro.jpg'
+				imageBase64: 'images/words/dog.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'tortuga',
-				imageBase64: 'images/words/tortuga.jpg'
+				imageBase64: 'images/words/turtle.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'vaca',
-				imageBase64: 'images/words/vaca.jpg'
+				imageBase64: 'images/words/cow.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -1,
 				word: 'yegua',
-				imageBase64: 'images/words/yegua.jpg'
+				imageBase64: 'images/words/horse-female.jpg'
 			},
 			{
 				id: -1,
 				categoryId: -2,
-				word: 'abuela',
-				imageBase64: 'images/family/abuela.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'abuelo',
-				imageBase64: 'images/family/abuelo.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'andres',
-				imageBase64: 'images/family/andres.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'dani',
-				imageBase64: 'images/family/dani.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'mama',
-				imageBase64: 'images/family/mama.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'martina',
-				imageBase64: 'images/family/martina.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'papa',
-				imageBase64: 'images/family/papa.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'sara',
-				imageBase64: 'images/family/sara.png',
-			},
-			{
-				id: -1,
-				categoryId: -2,
-				word: 'sophie',
-				imageBase64: 'images/family/sophie.png',
-			},
-			{
-				id: -1,
-				categoryId: -3,
-				word: 'caramelo',
-				imageBase64: 'images/words/caramelo.png'
-			},
-			{
-				id: -1,
-				categoryId: -3,
-				word: 'chupachups',
-				imageBase64: 'images/words/chupa-chups.jpg'
-			},
-			{
-				id: -1,
-				categoryId: -4,
 				word: 'cama',
 				imageBase64: 'images/words/bed.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cuento',
 				imageBase64: 'images/words/book.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'botella',
 				imageBase64: 'images/words/bottle.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'silla',
 				imageBase64: 'images/words/chair.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cuco',
-				imageBase64: 'images/words/cuco.jpg'
+				imageBase64: 'images/words/cuckoo.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'taza',
 				imageBase64: 'images/words/cup.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'puerta',
 				imageBase64: 'images/words/door.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'biberon',
 				imageBase64: 'images/words/feeding-bottle.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'tenedor',
 				imageBase64: 'images/words/fork.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'jardin',
 				imageBase64: 'images/words/garden.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'vaso',
 				imageBase64: 'images/words/glass.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'gafas',
 				imageBase64: 'images/words/glasses.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'guantes',
 				imageBase64: 'images/words/gloves.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'peine',
 				imageBase64: 'images/words/hairbrush.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'mano',
 				imageBase64: 'images/words/hand.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'sombrero',
 				imageBase64: 'images/words/hat.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cocina',
 				imageBase64: 'images/words/kitchen.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cuchillo',
 				imageBase64: 'images/words/knife.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'sarten',
 				imageBase64: 'images/words/pan.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'lapizero',
 				imageBase64: 'images/words/pencil.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'piano',
 				imageBase64: 'images/words/piano.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'planta',
 				imageBase64: 'images/words/plant.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'plato',
 				imageBase64: 'images/words/plate.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cazo',
 				imageBase64: 'images/words/saucepan.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'tijeras',
 				imageBase64: 'images/words/scissors.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cucharita',
 				imageBase64: 'images/words/small-spoon.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'escaleras',
 				imageBase64: 'images/words/stairs.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'mesa',
 				imageBase64: 'images/words/table.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cepillo',
 				imageBase64: 'images/words/toothbrush.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'pasta',
 				imageBase64: 'images/words/toothpaste.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'cocinita',
 				imageBase64: 'images/words/toy-kitchen.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'juguetes',
 				imageBase64: 'images/words/toys.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'arbol',
 				imageBase64: 'images/words/tree.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'paraguas',
 				imageBase64: 'images/words/umbrella.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -4,
+				categoryId: -2,
 				word: 'ventana',
 				imageBase64: 'images/words/window.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'brazo',
 				imageBase64: 'images/words/arm.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'oreja',
 				imageBase64: 'images/words/ear.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'ojo',
 				imageBase64: 'images/words/eye.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'pie',
 				imageBase64: 'images/words/foot.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'mano',
 				imageBase64: 'images/words/hand.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'piernas',
 				imageBase64: 'images/words/legs.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'nariz',
 				imageBase64: 'images/words/nose.jpg'
 			},
 			{
 				id: -1,
-				categoryId: -5,
+				categoryId: -3,
 				word: 'dientes',
 				imageBase64: 'images/words/teeth.jpg'
 			},
@@ -468,7 +392,7 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				categoryId: -1,
 				word: 'squirrel',
-				imageBase64: 'images/words/ardilla.jpg'
+				imageBase64: 'images/words/squirrel.jpg'
 			}
 		]
 	}
