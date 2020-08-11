@@ -1,1 +1,2 @@
-https://fontawesome.com/how-to-use/on-the-web/setup/hosting-font-awesome-yourself
+# Letters
+Game for learning the keys in the keyboard
