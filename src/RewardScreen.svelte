@@ -27,13 +27,13 @@
     const { alt, src } = rewards[Math.floor((Math.random() * 5))];
 </script>
 
-<div class="winScreen">
+<div class="rewardScreen">
 	<h1>{$i18nStore.texts.veryGood}</h1>
 	<img {alt} {src} />
 </div>
 
 <style>
-	.winScreen {
+	.rewardScreen {
 		display: flex;
 		flex-direction: column;
 		justify-content: center;

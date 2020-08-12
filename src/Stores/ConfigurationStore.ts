@@ -25,10 +25,10 @@ class ConfigurationStore extends CustomStore<Configuration>
 		}));
 	}
 
-	public updateRewardScreen(shouldShowRegardScreen: boolean) {
+	public updateRewardScreen(shouldShowRewardScreen: boolean) {
 		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
-			shouldShowRegardScreen
+			shouldShowRewardScreen
 		}));
 	}
 

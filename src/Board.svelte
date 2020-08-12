@@ -4,11 +4,11 @@
 	import { speechSynthesis } from './Helpers/SpeechSynthesis.ts';
 
 	import SelectCategory from './SelectCategory.svelte';
-	import WinScreen from './WinScreen.svelte';
+	import RewardScreen from './RewardScreen.svelte';
 	import Panel from './Panel.svelte';
 	import Word from './Word.svelte';
 
-	let isWinScreenOpen = false;
+	let isRewardScreenOpen = false;
 	let stages = [];
 	let index = 0;
 	let initialLanguage = $configurationStore.language;
@@ -36,7 +36,7 @@
 		if (char.toLowerCase() !== word[index].toLowerCase()) return;
 
 		if (++index === word.length) {
-			if ($configurationStore.shouldShowRegardScreen) await showWinScreen(1500);
+			if ($configurationStore.shouldShowRewardScreen) await showRewardScreen(1500);
 			index = 0;
 			stages = [...stages.splice(1, stages.length)];
 			actualStage++;
@@ -49,11 +49,11 @@
 		}
 	}
 
-	async function showWinScreen (duration: number) {
+	async function showRewardScreen (duration: number) {
 		speechSynthesis.cancelReading();
-		isWinScreenOpen = true;
+		isRewardScreenOpen = true;
 		await new Promise((resolve) => setTimeout(() => {
-			isWinScreenOpen = false;
+			isRewardScreenOpen = false;
 			resolve();
 		}, duration));
 	}
@@ -97,8 +97,8 @@
 <Panel>
 	{#if stages.length === 0}
 		<SelectCategory bind:stages="{stages}" />
-	{:else if isWinScreenOpen}
-		<WinScreen />
+	{:else if isRewardScreenOpen}
+		<RewardScreen />
 	{:else}
 		<div>
 			<input

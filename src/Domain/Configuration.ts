@@ -5,7 +5,7 @@ export interface Configuration
 	isCustomCategoriesOpen: boolean,
 	colorThemeType: ColorThemeType,
 	isMiniLetterActive: boolean,
-	shouldShowRegardScreen: boolean
+	shouldShowRewardScreen: boolean
 }
 
 export const LOCALES_EN = 'en|en-GB|en-US';

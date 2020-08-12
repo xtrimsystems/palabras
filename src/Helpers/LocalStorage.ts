@@ -13,7 +13,7 @@ class LocalStorage
 		isMiniLetterActive: false,
 		colorThemeType: ColorThemeType.PINK,
 		language: initialLanguage,
-		shouldShowRegardScreen: false,
+		shouldShowRewardScreen: false,
 	};
 
 	public constructor(localStorage: Storage)
