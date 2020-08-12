@@ -12,8 +12,14 @@
 	let stages = [];
 	let index = 0;
 	let initialLanguage = $configurationStore.language;
+	let isInitialLoad = true;
+	let totalStages = 0;
+	let actualStage = 0;
 
-	$: if (stages.length > 0) readOutLoudNextWord();
+	$: {
+		if (stages.length > 0 && isInitialLoad) setPagination();
+		else if (stages.length > 0) readOutLoudNextWord();
+	}
 	$: if ($configurationStore.language !== initialLanguage) resetGame();
 
 	async function onInputChanged (event) {
@@ -33,6 +39,7 @@
 			await showWinScreen(5000);
 			index = 0;
 			stages = [...stages.splice(1, stages.length)];
+			actualStage++;
 
 			if (stages.length === 0) {
 				resetGame();
@@ -75,6 +82,15 @@
 		initialLanguage = $configurationStore.language;
 		index = 0;
 		stages = [];
+		isInitialLoad = true;
+		totalStages = 0;
+		actualStage = 0;
+	}
+
+	function setPagination() {
+		isInitialLoad = false;
+		totalStages = stages.length;
+		actualStage = 1;
 	}
 </script>
 
@@ -104,6 +120,12 @@
 				<img src="{stages[0].imageBase64}" alt="{stages[0].word}">
 			</div>
 
+			<div class="pagination">
+				<div class="progress">
+					<div class="progress-bar bg-primary" role="progressbar" style="width: {((actualStage-1)/totalStages)*100}%" aria-valuemin="0" aria-valuemax="100"></div>
+				</div>
+				<span class="pagination-numbers">{actualStage}/{totalStages}</span>
+			</div>
 			<button class="btn btn-secondary btn-lg" on:click="{readOutLoudNextLetter}">{$i18nStore.texts.repeatLetter}</button>
 			<button class="btn btn-primary btn-lg" on:click="{resetGame}">{$i18nStore.texts.backToMenu}</button>
 		</div>
@@ -111,6 +133,19 @@
 </Panel>
 
 <style>
+	.pagination {
+		display: flex;
+		position: relative;
+		padding-bottom: 1rem;
+	}
+	.progress {
+		width: 100%;
+	}
+	.pagination-numbers {
+		position: absolute;
+		right: 0;
+		line-height: 1.2rem;
+	}
 	.image {
 		text-align: center;
 		margin: 15px 0;
