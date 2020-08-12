@@ -1,7 +1,8 @@
 <script lang="ts">
 	import { fly } from 'svelte/transition';
 
-	import {configurationStore} from './Stores/ConfigurationStore.ts';
+	import { configurationStore } from './Stores/ConfigurationStore.ts';
+	import { i18nStore } from './Stores/I18nStore.ts';
 
 	export let isSidebarOpen = false;
 
@@ -36,13 +37,13 @@
 	<div class="navbarNav" transition:fly="{{ x: -50, duration: 250 }}">
 		<ul class="navbar-nav">
 			<li class="nav-item" class:active={!$configurationStore.isConfigurationOpen && !$configurationStore.isCustomCategoriesOpen}>
-				<span class="nav-link" on:click|preventDefault={openGameView}>Game</span>
+				<span class="nav-link" on:click|preventDefault={openGameView}>{$i18nStore.texts.game}</span>
 			</li>
 			<li class="nav-item" class:active={$configurationStore.isCustomCategoriesOpen}>
-				<span class="nav-link" on:click|preventDefault={openMyCategories}>My Categories</span>
+				<span class="nav-link" on:click|preventDefault={openMyCategories}>{$i18nStore.texts.myCategories}</span>
 			</li>
 			<li class="nav-item" class:active={$configurationStore.isConfigurationOpen}>
-				<span class="nav-link" on:click|preventDefault={openSettings}>Settings</span>
+				<span class="nav-link" on:click|preventDefault={openSettings}>{$i18nStore.texts.settings}</span>
 			</li>
 		</ul>
 	</div>

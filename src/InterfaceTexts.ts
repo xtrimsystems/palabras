@@ -20,6 +20,9 @@ export interface InterfaceText
 	close: string,
 	create: string,
 	uploadPhotoInfo: string,
+	game: string,
+	myCategories: string,
+	settings: string,
 }
 
 export interface I18n
@@ -50,6 +53,9 @@ export const InterfaceTexts: I18n[] = [
 			close: 'Cerrar',
 			create: 'Crear',
 			uploadPhotoInfo: 'Click para cargar foto',
+			game: 'Juego',
+			myCategories: 'Mis Categorias',
+			settings: 'Opciones'
 		}
 	},
 	{
@@ -72,7 +78,10 @@ export const InterfaceTexts: I18n[] = [
 			backToMenu: 'Back to menu',
 			close: 'Close',
 			create: 'Create',
-			uploadPhotoInfo: 'Click to load photo'
+			uploadPhotoInfo: 'Click to load photo',
+			game: 'Game',
+			myCategories: 'My Categories',
+			settings: 'Settings'
 		}
 	}
 ];
