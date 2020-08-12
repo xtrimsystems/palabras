@@ -12,9 +12,11 @@
 	let lang = $configurationStore.language;
 	let colorThemeType = $configurationStore.colorThemeType;
 	let isMiniLetterActive = $configurationStore.isMiniLetterActive;
+	let shouldShowRegardScreen = $configurationStore.shouldShowRegardScreen;
 
 	$: configurationStore.updateColorTheme(colorThemeType);
 	$: configurationStore.updateMiniLetter(isMiniLetterActive);
+	$: configurationStore.updateRewardScreen(shouldShowRegardScreen);
 	$: if (lang !== undefined) configurationStore.updateLanguage(lang);
 	$: i18nStore.updateI18n(InterfaceTexts.find((it) => $configurationStore.language.match(it.language)))
 </script>
@@ -52,6 +54,12 @@
 	</div>
 	<div class="form-group">
 		<Word isMiniLetterActive="{isMiniLetterActive}" />
+	</div>
+	<div class="form-group">
+		<div class="custom-control custom-switch">
+			<input bind:checked="{shouldShowRegardScreen}" type="checkbox" class="custom-control-input" id="rewardScreen">
+			<label class="custom-control-label" for="rewardScreen">{$i18nStore.texts.showRewardScreen}</label>
+		</div>
 	</div>
 </Panel>
 

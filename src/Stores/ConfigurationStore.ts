@@ -17,10 +17,18 @@ class ConfigurationStore extends CustomStore<Configuration>
 			colorThemeType
 		}));
 	}
+
 	public updateMiniLetter(isMiniLetterActive: boolean) {
 		this.update((configuration: Configuration): Configuration => ({
 			...configuration,
 			isMiniLetterActive
+		}));
+	}
+
+	public updateRewardScreen(shouldShowRegardScreen: boolean) {
+		this.update((configuration: Configuration): Configuration => ({
+			...configuration,
+			shouldShowRegardScreen
 		}));
 	}
 

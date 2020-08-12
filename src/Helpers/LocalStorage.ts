@@ -12,7 +12,8 @@ class LocalStorage
 		isCustomCategoriesOpen: false,
 		isMiniLetterActive: false,
 		colorThemeType: ColorThemeType.PINK,
-		language: initialLanguage
+		language: initialLanguage,
+		shouldShowRegardScreen: false,
 	};
 
 	public constructor(localStorage: Storage)

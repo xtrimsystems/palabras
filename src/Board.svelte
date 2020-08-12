@@ -36,7 +36,7 @@
 		if (char.toLowerCase() !== word[index].toLowerCase()) return;
 
 		if (++index === word.length) {
-			await showWinScreen(5000);
+			if ($configurationStore.shouldShowRegardScreen) await showWinScreen(1500);
 			index = 0;
 			stages = [...stages.splice(1, stages.length)];
 			actualStage++;
