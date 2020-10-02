@@ -20,6 +20,11 @@ export const Categories: I18nCategories[] = [
 				name: 'Partes del cuerpo',
 				imageBase64: 'images/body.png'
 			},
+			{
+				id: -4,
+				name: 'Comida',
+				imageBase64: 'images/food.png'
+			},
 		],
 		stages: [
 			{
@@ -375,6 +380,84 @@ export const Categories: I18nCategories[] = [
 				categoryId: -3,
 				word: 'dientes',
 				imageBase64: 'images/words/teeth.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'huevo',
+				imageBase64: 'images/words/eggs.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'garbanzos',
+				imageBase64: 'images/words/chickpeas.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'almendras',
+				imageBase64: 'images/words/almonds.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'pescado',
+				imageBase64: 'images/words/fish.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'aguacate',
+				imageBase64: 'images/words/avocado.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'platano',
+				imageBase64: 'images/words/banana.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'manzana',
+				imageBase64: 'images/words/apple.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'frambuesa',
+				imageBase64: 'images/words/raspberries.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'tomate',
+				imageBase64: 'images/words/tomatoes.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'fresa',
+				imageBase64: 'images/words/strawberries.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'cereales',
+				imageBase64: 'images/words/cereals.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'piña',
+				imageBase64: 'images/words/pineapple.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'guisantes',
+				imageBase64: 'images/words/pees.png'
 			},
 		]
 	},
