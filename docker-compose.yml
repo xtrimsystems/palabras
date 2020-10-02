@@ -1,0 +1,13 @@
+version: "3.5"
+
+services:
+  node:
+    image: node:14.2-alpine
+    container_name: letter-node
+    volumes:
+      - .:/www
+    ports:
+      - "5000:5000" # localhost
+      - "3000:3000" # browser-sync
+    userns_mode: host
+    network_mode: host

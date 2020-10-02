@@ -1,61 +1,52 @@
-import svelte from "rollup-plugin-svelte";
-import resolve from "rollup-plugin-node-resolve";
-import commonjs from "rollup-plugin-commonjs";
-import html from 'rollup-plugin-html';
-import { terser } from "rollup-plugin-terser";
-import typescript from "rollup-plugin-typescript2";
-import {
-	preprocess,
-	createEnv,
-	readConfigFile
-} from "@pyoner/svelte-ts-preprocess";
+import svelte from 'rollup-plugin-svelte';
+import resolve from '@rollup/plugin-node-resolve';
+import commonjs from '@rollup/plugin-commonjs';
+import { terser } from 'rollup-plugin-terser';
+import sveltePreprocess from 'svelte-preprocess';
+import typescript from '@rollup/plugin-typescript';
 
 const production = !process.env.ROLLUP_WATCH;
 
-const env = createEnv();
-const compilerOptions = readConfigFile(env);
-const opts = {
-	env,
-	compilerOptions: {
-		...compilerOptions,
-		allowNonTsExtensions: true
-	}
-};
-
 export default {
-	input: "src/main.ts",
+	input: 'src/main.ts',
 	output: {
 		sourcemap: true,
-		format: "iife",
-		name: "app",
-		file: "public/bundle.js"
+		format: 'iife',
+		name: 'app',
+		file: 'public/bundle.js'
 	},
 	plugins: [
-		html({
-			include: 'index.html'
-		}),
 		svelte({
 			// enable run-time checks when not in production
 			dev: !production,
 			// we'll extract any component CSS out into
-			// a separate file — better for performance
+			// a separate file - better for performance
 			css: css => {
-				css.write("public/bundle.css");
+				css.write('bundle.css');
 			},
-			preprocess: preprocess(opts)
+			preprocess: sveltePreprocess(),
 		}),
 
 		// If you have external dependencies installed from
 		// npm, you'll most likely need these plugins. In
-		// some cases you'll need additional configuration —
+		// some cases you'll need additional configuration -
 		// consult the documentation for details:
-		// https://github.com/rollup/rollup-plugin-commonjs
-		resolve(),
+		// https://github.com/rollup/plugins/tree/master/packages/commonjs
+		resolve({
+			browser: true,
+			dedupe: ['svelte']
+		}),
 		commonjs(),
-		typescript(),
+		typescript({
+			sourceMap: !production,
+			inlineSources: !production
+		}),
 
 		// If we're building for production (npm run build
 		// instead of npm run dev), minify
 		production && terser()
-	]
+	],
+	watch: {
+		clearScreen: false
+	}
 };
