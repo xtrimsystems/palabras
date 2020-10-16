@@ -468,7 +468,22 @@ export const Categories: I18nCategories[] = [
 				id: -1,
 				name: 'Animals',
 				imageBase64: 'images/animals.webp'
-			}
+			},
+			{
+				id: -2,
+				name: 'Things at home',
+				imageBase64: 'images/house.jpeg'
+			},
+			{
+				id: -3,
+				name: 'Parts of the body',
+				imageBase64: 'images/body.png'
+			},
+			{
+				id: -4,
+				name: 'Food',
+				imageBase64: 'images/food.png'
+			},
 		],
 		stages: [
 			{
@@ -476,7 +491,427 @@ export const Categories: I18nCategories[] = [
 				categoryId: -1,
 				word: 'squirrel',
 				imageBase64: 'images/words/squirrel.jpg'
-			}
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'horse',
+				imageBase64: 'images/words/horse-male.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'zebra',
+				imageBase64: 'images/words/zebra.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'deer',
+				imageBase64: 'images/words/deer.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'rabbit',
+				imageBase64: 'images/words/rabbit.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'elephant',
+				imageBase64: 'images/words/elephant.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'chicken',
+				imageBase64: 'images/words/chicken.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'cat',
+				imageBase64: 'images/words/cat.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'lemur',
+				imageBase64: 'images/words/lemur.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'bear',
+				imageBase64: 'images/words/bear.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'panda',
+				imageBase64: 'images/words/panda.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'parakeet',
+				imageBase64: 'images/words/parakeet.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'dog',
+				imageBase64: 'images/words/dog.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'turtle',
+				imageBase64: 'images/words/turtle.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -1,
+				word: 'cow',
+				imageBase64: 'images/words/cow.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'bed',
+				imageBase64: 'images/words/bed.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'book',
+				imageBase64: 'images/words/book.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'bottle',
+				imageBase64: 'images/words/bottle.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'chair',
+				imageBase64: 'images/words/chair.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'cuckoo',
+				imageBase64: 'images/words/cuckoo.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'cup',
+				imageBase64: 'images/words/cup.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'door',
+				imageBase64: 'images/words/door.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'feeding bottle',
+				imageBase64: 'images/words/feeding-bottle.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'fork',
+				imageBase64: 'images/words/fork.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'garden',
+				imageBase64: 'images/words/garden.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'glass',
+				imageBase64: 'images/words/glass.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'glasses',
+				imageBase64: 'images/words/glasses.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'gloves',
+				imageBase64: 'images/words/gloves.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'hairbrush',
+				imageBase64: 'images/words/hairbrush.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'hand',
+				imageBase64: 'images/words/hand.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'hat',
+				imageBase64: 'images/words/hat.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'kitchen',
+				imageBase64: 'images/words/kitchen.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'knife',
+				imageBase64: 'images/words/knife.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'pan',
+				imageBase64: 'images/words/pan.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'pencil',
+				imageBase64: 'images/words/pencil.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'piano',
+				imageBase64: 'images/words/piano.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'plant',
+				imageBase64: 'images/words/plant.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'plate',
+				imageBase64: 'images/words/plate.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'saucepan',
+				imageBase64: 'images/words/saucepan.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'scissors',
+				imageBase64: 'images/words/scissors.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'spoon',
+				imageBase64: 'images/words/small-spoon.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'stairs',
+				imageBase64: 'images/words/stairs.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'table',
+				imageBase64: 'images/words/table.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'toothbrush',
+				imageBase64: 'images/words/toothbrush.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'toothpaste',
+				imageBase64: 'images/words/toothpaste.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'toy kitchen',
+				imageBase64: 'images/words/toy-kitchen.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'toys',
+				imageBase64: 'images/words/toys.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'tree',
+				imageBase64: 'images/words/tree.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'umbrella',
+				imageBase64: 'images/words/umbrella.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -2,
+				word: 'window',
+				imageBase64: 'images/words/window.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'arm',
+				imageBase64: 'images/words/arm.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'ear',
+				imageBase64: 'images/words/ear.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'eye',
+				imageBase64: 'images/words/eye.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'foot',
+				imageBase64: 'images/words/foot.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'hand',
+				imageBase64: 'images/words/hand.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'legs',
+				imageBase64: 'images/words/legs.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'nose',
+				imageBase64: 'images/words/nose.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -3,
+				word: 'teeth',
+				imageBase64: 'images/words/teeth.jpg'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'eggs',
+				imageBase64: 'images/words/eggs.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'chickpeas',
+				imageBase64: 'images/words/chickpeas.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'almonds',
+				imageBase64: 'images/words/almonds.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'fish',
+				imageBase64: 'images/words/fish.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'avocado',
+				imageBase64: 'images/words/avocado.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'banana',
+				imageBase64: 'images/words/banana.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'apple',
+				imageBase64: 'images/words/apple.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'raspberries',
+				imageBase64: 'images/words/raspberries.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'tomatoes',
+				imageBase64: 'images/words/tomatoes.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'strawberries',
+				imageBase64: 'images/words/strawberries.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'cereals',
+				imageBase64: 'images/words/cereals.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'pineapple',
+				imageBase64: 'images/words/pineapple.png'
+			},
+			{
+				id: -1,
+				categoryId: -4,
+				word: 'pees',
+				imageBase64: 'images/words/pees.png'
+			},
 		]
 	}
 ];
