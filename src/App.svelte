@@ -32,6 +32,8 @@
 </script>
 
 <svelte:head>
+	<meta name="description" content={$i18nStore.texts.metaDescription}>
+	<meta name="keywords" content={$i18nStore.texts.metaKeywords}>
 	<title>{$i18nStore.texts.appName}</title>
 </svelte:head>
 

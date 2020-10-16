@@ -3,6 +3,8 @@ import { LOCALES_EN, LOCALES_ES } from './Domain';
 export interface InterfaceText
 {
 	appName: string,
+	metaDescription: string,
+	metaKeywords: string,
 	language: string,
 	color: string,
 	showLowerCase: string,
@@ -37,6 +39,8 @@ export const InterfaceTexts: I18n[] = [
 		language: LOCALES_ES,
 		texts: {
 			appName: 'Letras',
+			metaDescription: 'Juego para aprender a user el teclado y la posicion de las teclas en el teclado. Perfecto para niños y mayores.',
+			metaKeywords: 'aprender, niño, niña, niños, niñas, mayores, senior, teclado, letras, tecla',
 			language: 'Idioma',
 			color: 'Color',
 			showLowerCase: 'Mostrar letras en minúscula',
@@ -64,6 +68,8 @@ export const InterfaceTexts: I18n[] = [
 		language: LOCALES_EN,
 		texts: {
 			appName: 'Letters',
+			metaDescription: 'Game for learning how to use the keyboard and the position of the keys in the keyboard. Perfect for kids and elder.',
+			metaKeywords: 'learn, kid, kids, elder, keyboard, letters, key',
 			language: 'Language',
 			color: 'Color',
 			showLowerCase: 'Show lower case letters',
